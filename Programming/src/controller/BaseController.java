@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class BaseController {
 
+    //Control Coupling
     /**
      * The method checks whether the Media in Cart, if it were in, we will return
      * the CartMedia else return null.
@@ -25,6 +26,7 @@ public class BaseController {
         return Cart.getCart().checkMediaInCart(media);
     }
 
+    //
     /**
      * This method gets the list of items in cart.
      *

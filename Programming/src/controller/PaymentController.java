@@ -102,7 +102,7 @@ public class PaymentController extends BaseController {
         var url = vnPayService.generatePayUrl(amount, content);
         return url;
     }
-
+    //
     public void emptyCart() {
         Cart.getCart().emptyCart();
     }
