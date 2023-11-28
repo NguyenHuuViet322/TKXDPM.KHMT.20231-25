@@ -48,6 +48,7 @@ public class PlaceOrderController extends BaseController {
         return order;
     }
 
+    //Control Coupling
     /**
      * This method creates the new Invoice based on order
      *
@@ -132,6 +133,7 @@ public class PlaceOrderController extends BaseController {
         return fees;
     }
 
+    //Control Coupling
     /**
      * This method get product available place rush order media
      *
