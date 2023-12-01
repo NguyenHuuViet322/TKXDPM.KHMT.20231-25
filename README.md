@@ -18,19 +18,6 @@ This is a Capstone's source code for Software Design and Construction project
   <summary>W3: 27/11/2023~03/12/2023 </summary>
 <br>
 <details>
-<summary>Nguyễn Hữu Việt</summary>
-<br>
-- Assigned tasks:
-  - Task 1: Bổ sung Coupling cho package entity.cart
-  - Task 2: Bổ sung Coupling cho package utils
-- Implementation details:
-
-</details>
-
-<details>
-  <summary>W3: 27/11/2023~03/12/2023 </summary>
-<br>
-<details>
 
 <summary>Nguyễn Hữu Việt</summary>
 <br>
