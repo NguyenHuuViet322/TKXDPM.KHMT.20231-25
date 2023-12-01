@@ -15,7 +15,7 @@ This is a Capstone's source code for Software Design and Construction project
 ## Report Content
 
 <details>
-  <summary>W3: 27/11/2023~03/12/2023 </summary>
+  <summary>W13: 27/11/2023~03/12/2023 </summary>
 <br>
 <details>
 <summary>Nguyễn Hữu Việt</summary>
