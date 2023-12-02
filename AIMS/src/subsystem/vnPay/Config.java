@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
+ * No Coupling
  * @author CTT VNPAY
  */
 public class Config {
