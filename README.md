@@ -21,6 +21,7 @@ This is a Capstone's source code for Software Design and Construction project
 <details>
 <summary>Nguyễn Hữu Việt</summary>
 <br>
+
 - Assigned tasks:
   - Task 1: Bổ sung Coupling cho package controller
 - Implementation details:
@@ -40,8 +41,8 @@ This is a Capstone's source code for Software Design and Construction project
 <details>
 <summary>Member 2</summary>
 <br>
+  
 - Assigned tasks:
- 
 - Implementation details:
   
 </details>
