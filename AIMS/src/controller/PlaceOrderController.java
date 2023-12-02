@@ -26,6 +26,7 @@ public class PlaceOrderController extends BaseController {
      *
      * @throws SQLException
      */
+    //Không xác định coupling
     public void placeOrder() throws SQLException {
         Cart.getCart().checkAvailabilityOfProduct();
     }
@@ -36,6 +37,7 @@ public class PlaceOrderController extends BaseController {
      * @return Order
      * @throws SQLException
      */
+    //Control Coupling
     public Order createOrder() throws SQLException {
         Order order = new Order();
         for (Object object : Cart.getCart().getListMedia()) {
@@ -48,15 +50,14 @@ public class PlaceOrderController extends BaseController {
         return order;
     }
 
-    //Control Coupling
     /**
      * This method creates the new Invoice based on order
      *
      * @param order
      * @return Invoice
      */
+    //Control coupling
     public Invoice createInvoice(Order order) {
-
         order.createOrderEntity();
         return new Invoice(order);
     }
@@ -68,6 +69,7 @@ public class PlaceOrderController extends BaseController {
      * @throws InterruptedException
      * @throws IOException
      */
+    //Data Coupling
     public void processDeliveryInfo(HashMap info) throws InterruptedException, IOException {
         validateDeliveryInfo(info);
     }
@@ -88,6 +90,7 @@ public class PlaceOrderController extends BaseController {
      * @param phoneNumber
      * @return boolean
      */
+    //Control Coupling
     public boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 10)
             return false;
@@ -107,6 +110,7 @@ public class PlaceOrderController extends BaseController {
      * @param name
      * @return boolean
      */
+    //Control Coupling
     public boolean validateContainLetterAndNoEmpty(String name) {
         // Check name is not null
         if (name == null)
@@ -127,13 +131,13 @@ public class PlaceOrderController extends BaseController {
      * @param order
      * @return shippingFee
      */
+    //không xác định coupling
     public int calculateShippingFee(int amount) {
         Random rand = new Random();
         int fees = (int) (((rand.nextFloat() * 10) / 100) * amount);
         return fees;
     }
 
-    //Control Coupling
     /**
      * This method get product available place rush order media
      *
@@ -141,6 +145,7 @@ public class PlaceOrderController extends BaseController {
      * @return media
      * @throws SQLException
      */
+    //Control Coupling
     public Media getProductAvailablePlaceRush(Order order) throws SQLException {
         Media media = new Media();
         for (OrderMedia pd : order.getlstOrderMedia()) {
@@ -158,6 +163,7 @@ public class PlaceOrderController extends BaseController {
      * @param address
      * @return boolean
      */
+    //Control Coupling
     public boolean validateAddressPlaceRushOrder(String province, String address) {
         if (!validateContainLetterAndNoEmpty(address))
             return false;
@@ -170,6 +176,7 @@ public class PlaceOrderController extends BaseController {
     /**
      * @return boolean
      */
+    //Control Coupling
     public boolean validateMediaPlaceRushorder() {
         if (Media.getIsSupportedPlaceRushOrder())
             return true;
