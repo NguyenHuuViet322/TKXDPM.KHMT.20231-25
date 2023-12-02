@@ -24,7 +24,6 @@ This is a Capstone's source code for Software Design and Construction project
 - Assigned tasks:
   - Task 1: Bổ sung Coupling cho package controller
 - Implementation details:
-<<<<<<< HEAD
   - Pull Request: 
   - Specific implementation details:
     - Phương thức **checkMediaInCart(Media media)** thuộc **Control Coupling** do phục thuộc vào hàm **checkMediaInCart** của đối tượng Cart.
@@ -80,7 +79,5 @@ This is a Capstone's source code for Software Design and Construction project
   - Task 1: 
 - Implementation details:
 </details>
-
->>>>>>> 36c055b8ae985ff4ad5dafff6f257b00352dea3a
 </details>
 
