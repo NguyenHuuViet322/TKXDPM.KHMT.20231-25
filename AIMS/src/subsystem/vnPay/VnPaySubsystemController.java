@@ -17,6 +17,7 @@ public class VnPaySubsystemController {
 
     /**
      * Data coupling
+     * Control coupling
      * @param money
      * @param contents
      * @return PaymentTransaction
@@ -94,6 +95,7 @@ public class VnPaySubsystemController {
 
     /**
      * Data coupling
+     * Control coupling
      * @param response
      * @return PaymentTransaction
      */
