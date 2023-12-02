@@ -17,7 +17,7 @@ public class PlaceRushOrderController extends BaseController {
     private static Logger LOGGER = utils.Utils.getLogger(PlaceRushOrderController.class.getName());
 
 
-    //Stamp Coupling
+    //Common Coupling
     /**
      * @param deliveryData
      * @param typeDelivery
