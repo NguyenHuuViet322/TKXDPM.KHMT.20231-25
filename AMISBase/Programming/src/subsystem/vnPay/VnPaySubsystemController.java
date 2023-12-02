@@ -15,51 +15,8 @@ public class VnPaySubsystemController {
     private static final String PAY_COMMAND = "pay";
     private static final String VERSION = "2.1.0";
 
-//  private static VnPayService vnPayService = new VnPayService();
-
-
     /**
-     * @param amount
-     * @param contents
-     * @return PaymentTransaction
-     */
-    public PaymentTransaction refund(int amount, String contents) {
-        return null;
-    }
-
-
-//  /**
-//   * @param data
-//   * @return String
-//   */
-//  private String generateData(Map<String, Object> data) {
-//    return ((MyMap) data).toJSON();
-//  }
-
-//  public static String convertToQueryString(Map<String, Object> paramMap) throws UnsupportedEncodingException {
-//    StringBuilder queryString = new StringBuilder();
-//
-//    for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
-//      String key = entry.getKey();
-//      Object value = entry.getValue();
-//
-//      // Kiểm tra nếu giá trị là null
-//      if (value != null) {
-//        // Chuyển đổi giá trị thành chuỗi
-//        String encodedValue = URLEncoder.encode(value.toString(), "UTF-8");
-//
-//        // Thêm vào chuỗi tham số truy vấn
-//        if (queryString.length() > 0) {
-//          queryString.append("&");
-//        }
-//        queryString.append(key).append("=").append(encodedValue);
-//      }
-//    }
-//
-//    return queryString.toString();
-//  }
-
-    /**
+     * Data coupling
      * @param money
      * @param contents
      * @return PaymentTransaction
@@ -136,6 +93,7 @@ public class VnPaySubsystemController {
 
 
     /**
+     * Data coupling
      * @param response
      * @return PaymentTransaction
      */
