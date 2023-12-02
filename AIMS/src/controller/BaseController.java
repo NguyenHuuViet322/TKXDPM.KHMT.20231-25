@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class BaseController {
 
-    //Control Coupling
     /**
      * The method checks whether the Media in Cart, if it were in, we will return
      * the CartMedia else return null.
@@ -22,6 +21,7 @@ public class BaseController {
      * @param media media object
      * @return CartMedia or null
      */
+    //Control Coupling
     public CartMedia checkMediaInCart(Media media) {
         return Cart.getCart().checkMediaInCart(media);
     }
@@ -32,6 +32,7 @@ public class BaseController {
      *
      * @return List[CartMedia]
      */
+    //Không xác đinh coupling
     public List getListCartMedia() {
         return Cart.getCart().getListMedia();
     }
