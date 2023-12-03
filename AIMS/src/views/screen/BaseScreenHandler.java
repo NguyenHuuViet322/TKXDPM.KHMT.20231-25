@@ -17,6 +17,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     private BaseScreenHandler prev;
     private BaseController bController;
 
+    //Data Coupling
     private BaseScreenHandler(String screenPath) throws IOException {
         super(screenPath);
         this.stage = new Stage();
