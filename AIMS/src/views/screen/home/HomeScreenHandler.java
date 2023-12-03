@@ -91,6 +91,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
      * @param arg1
      */
     @Override
+// Control Coupling
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
         try {
@@ -127,7 +128,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         addMenuItem(1, "DVD", splitMenuBtnSearch);
         addMenuItem(2, "CD", splitMenuBtnSearch);
     }
-
+//Data Coupling 
     public void setImage() {
         // fix image path caused by fxml
         File file1 = new File(Configs.IMAGE_PATH + "/" + "Logo.png");
@@ -142,6 +143,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     /**
      * @param items
      */
+//Data Coupling 
     public void addMediaHome(List items) {
         ArrayList mediaItems = (ArrayList) ((ArrayList) items).clone();
         hboxMedia.getChildren().forEach(node -> {
@@ -167,6 +169,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
      * @param text
      * @param menuButton
      */
+
+// Data Coupling 
     private void addMenuItem(int position, String text, MenuButton menuButton) {
         MenuItem menuItem = new MenuItem();
         Label label = new Label();

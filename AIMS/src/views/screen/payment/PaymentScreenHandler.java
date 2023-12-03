@@ -34,6 +34,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
         displayWebView();
 
     }
+// Control Coupling // Data Coupling 
     private void displayWebView(){
         var paymentController = new PaymentController();
         var paymentUrl = paymentController.getUrlPay(invoice.getAmount(), "Thanh toan hoa don AIMS");
@@ -42,6 +43,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
         webEngine.load(paymentUrl);
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
             // Xử lý khi URL thay đổi
+            // Data Coupling // Control Coupling
             handleUrlChanged(newValue);
         });
         vBox.getChildren().clear();
@@ -91,6 +93,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
      * @author NTVu 20204625
      * @throws IOException
      */
+    // Control Coupling
     void payOrder(Map<String, String> res) throws IOException {
 
         var ctrl = (PaymentController) super.getBController();

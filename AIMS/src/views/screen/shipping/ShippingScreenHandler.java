@@ -74,11 +74,12 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
      * @throws SQLException
      */
     @FXML
+// Control Coupling
     void submitDeliveryInfo(MouseEvent event) throws IOException, InterruptedException, SQLException {
 
         // add info to messages
-        HashMap messages = new HashMap<>();
-        messages.put("name", name.getText());
+        HashMap messages = new HashMap<>(); 
+        messages.put("name", name.getText()); // Data Coupling 
         messages.put("phone", phone.getText());
         messages.put("address", address.getText());
         messages.put("instructions", instructions.getText());
