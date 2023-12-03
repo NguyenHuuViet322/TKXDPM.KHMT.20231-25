@@ -49,6 +49,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     @FXML
     private Button btnPlaceOrder;
 
+
     public CartScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
 
@@ -77,6 +78,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @return Label
      */
@@ -85,6 +87,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @return Label
      */
@@ -114,6 +117,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Control coupling
     /**
      * @throws SQLException
      * @throws IOException
@@ -157,6 +161,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         getBController().checkAvailabilityOfProduct();
         displayCartWithMediaAvailability();
     }
+
 
     void updateCartAmount() {
         // calculate subtotal and amount
