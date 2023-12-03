@@ -162,7 +162,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         displayCartWithMediaAvailability();
     }
 
-
+    //Data Coupling
     void updateCartAmount() {
         // calculate subtotal and amount
         int subtotal = getBController().getCartSubtotal();
@@ -175,7 +175,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         labelVAT.setText(Utils.getCurrencyFormat(vat));
         labelAmount.setText(Utils.getCurrencyFormat(amount));
     }
-
+    //Control Coupling
     private void displayCartWithMediaAvailability() {
         // clear all old cartMedia
         vboxCart.getChildren().clear();
