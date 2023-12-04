@@ -44,8 +44,8 @@ This is a Capstone's source code for Software Design and Construction project
 - Task: Bổ sung Coupling cho package subSystem
  - Pull Request: 
   - Specific implementation details:
-    - Phương thức **generatePayUrl(int amount, String contents)** trong VnPaySubsystem thuộc **Control Coupling** do phục thuộc vào hàm **generatePayUrl(int amount, String contents)** của đối tượng VnPaySubsystemController.
-    - Phương thức **makePaymentTransaction(Map<String, String> response)** trong VnPaySubsystem thuộc **Control Coupling** do phụ thuộc vào **makePaymentTransaction** của **VnPaySubsystemController**
+    - Phương thức **generatePayUrl(int amount, String contents)** trong VnPaySubsystem thuộc **Data Coupling** do chỉ phục thuộc vào hàm **generatePayUrl(int amount, String contents)** của đối tượng VnPaySubsystemController.
+    - Phương thức **makePaymentTransaction(Map<String, String> response)** trong VnPaySubsystem thuộc **Data Coupling** do chỉ phụ thuộc vào **makePaymentTransaction** của **VnPaySubsystemController**
 
     **File VnPaySubsystemController:**
 
@@ -53,13 +53,8 @@ This is a Capstone's source code for Software Design and Construction project
     - Data Coupling:
     Phương thức này sử dụng dữ liệu từ Config như `getRandomNumber` và `getIpAddress`. Các giá trị này được truyền vào để tạo các tham số thanh toán.
     Dữ liệu được truyền giữa **VnPaySubsystemController** và **Config** thông qua việc gọi các hàm tiện ích của **Config**.
-    - Control Coupling:
-    Phương thức này gọi `Config.hmacSHA512` để tạo `vnp_SecureHash`. Điều này là control coupling vì **VnPaySubsystemController** phải biết cách **Config** tạo chuỗi hash để xác thực yêu cầu thanh toán.
 
     Hàm **makePaymentTransaction**:
-    - Data Coupling:
-    Phương thức này sử dụng dữ liệu từ response để tạo một đối tượng `PaymentTransaction`. Dữ liệu này được truyền giữa **VnPaySubsystemController** và đối tượng **PaymentTransaction**.
-    Sử dụng các hàm tiện ích của Java như `Integer.parseInt` và `SimpleDateFormat` để chuyển đổi dữ liệu từ response thành các trường của PaymentTransaction.
     - Control Coupling:
     Phương thức này chứa một khối switch để xử lý các trạng thái của giao dịch (errorCode). Điều này có thể được coi là control coupling vì **VnPaySubsystemController** định nghĩa cách xử lý các loại lỗi và trạng thái cụ thể.
     - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling**
