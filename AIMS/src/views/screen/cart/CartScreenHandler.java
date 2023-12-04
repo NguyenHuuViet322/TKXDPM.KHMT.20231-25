@@ -49,6 +49,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     @FXML
     private Button btnPlaceOrder;
 
+    //Control Coupling
     public CartScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
 
@@ -77,6 +78,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @return Label
      */
@@ -85,6 +87,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @return Label
      */
@@ -93,6 +96,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @return ViewCartController
      */
@@ -101,6 +105,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Khong xac dinh coupling
     /**
      * @param prevScreen
      * @throws SQLException
@@ -114,6 +119,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Control coupling
     /**
      * @throws SQLException
      * @throws IOException
@@ -149,7 +155,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         }
     }
 
-
+    //Khong xac dinh coupling
     /**
      * @throws SQLException
      */
@@ -158,6 +164,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         displayCartWithMediaAvailability();
     }
 
+    //Khong xac dinh coupling
     void updateCartAmount() {
         // calculate subtotal and amount
         int subtotal = getBController().getCartSubtotal();
@@ -170,7 +177,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         labelVAT.setText(Utils.getCurrencyFormat(vat));
         labelAmount.setText(Utils.getCurrencyFormat(amount));
     }
-
+    //Control Coupling
     private void displayCartWithMediaAvailability() {
         // clear all old cartMedia
         vboxCart.getChildren().clear();

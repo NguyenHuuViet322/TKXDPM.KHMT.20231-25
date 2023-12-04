@@ -65,3 +65,25 @@ This is a Capstone's source code for Software Design and Construction project
     - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling**
 
 </details>
+
+<details>
+<summary>Ninh Thành Vinh</summary>
+<br>  
+
+- Assigned tasks:
+  - Task: Bổ sung Coupling cho view.screen.cart và view.screen.invoice 
+- Pull Request:
+  - Specific implementation details:
+    - Phương thức **CartScreenHandler(Stage stage, String screenPath)** thuộc **Control Coupling** do sử dụng event **setOnMouseClicked**.
+    - Phương thức **requestOrder()** thuộc **Control Coupling** do phụ thuộc vào **placeOrderController** kiểm soát luồng.
+    - Phương thức **displayCartWithMediaAvailability()** thuộc **Control Coupling** do gọi và sử dụng các phương thức từ **MediaHandler**.
+    - Phương thức **setMediaInfo()** thuộc **Control Coupling** do sử dụng các event từ button.
+    - Phương thức **setInvoiceInfo()** thuộc **Control Coupling** do sử dụng thông tin lấy từ **invoice** ảnh hưởng đến luồng.
+    - Phương thức **confirmInvoice(MouseEvent event)** thuộc **Control Coupling** do phương thức thay đổi đối tượng **paymentScreen**
+    - Phương thức **setMediaInfo()** thuộc **Control Coupling** do phụ thuộc vào phương thức của **orderMedia**.
+    - Phương thức **MediaHandler(String screenPath, CartScreenHandler cartScreen)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
+    - Phương thức **setCartMedia(CartMedia cartMedia)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
+    - Phương thức **InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
+    - Phương thức **MediaInvoiceScreenHandler(String screenPath)** và **setOrderMedia(OrderMedia orderMedia)** thuộc **Data Coupling** do sử dụng vừa đủ params được truyền vào.
+    - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
+</details>
