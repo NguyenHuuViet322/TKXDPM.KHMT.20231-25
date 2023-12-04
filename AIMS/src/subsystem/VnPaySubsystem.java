@@ -1,11 +1,5 @@
 package subsystem;
 
-//import entity.payment.CreditCard;
-
-import common.exception.TransactionFailedException;
-import common.exception.TransactionNotDoneException;
-import common.exception.TransactionReverseException;
-import common.exception.UnrecognizedException;
 import entity.payment.PaymentTransaction;
 import subsystem.vnPay.VnPaySubsystemController;
 
@@ -36,7 +30,7 @@ public class VnPaySubsystem implements VnPayInterface {
     }
 
     /**
-     * Control coupling
+     * Data coupling
      */
     public String generatePayUrl(int amount, String contents) {
 
