@@ -24,6 +24,7 @@ public class FXMLScreenHandler {
     /**
      * @return AnchorPane
      */
+    //không xác định coupling
     public AnchorPane getContent() {
         return this.content;
     }
@@ -32,6 +33,7 @@ public class FXMLScreenHandler {
     /**
      * @return FXMLLoader
      */
+    //không xác định coupling
     public FXMLLoader getLoader() {
         return this.loader;
     }
@@ -42,6 +44,7 @@ public class FXMLScreenHandler {
      * @param imv  Link image
      * @param path Path of image
      */
+    //không xác định coupling
     public void setImage(ImageView imv, String path) {
         File file = new File(path);
         Image img = new Image(file.toURI().toString());
