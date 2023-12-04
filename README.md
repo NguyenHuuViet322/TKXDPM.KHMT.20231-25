@@ -87,3 +87,27 @@ This is a Capstone's source code for Software Design and Construction project
     - Phương thức **MediaInvoiceScreenHandler(String screenPath)** và **setOrderMedia(OrderMedia orderMedia)** thuộc **Data Coupling** do sử dụng vừa đủ params được truyền vào.
     - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
 </details>
+
+<details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+<br>
+
+-   Assigned tasks:
+    -   Task 1: Bổ sung Coupling cho package Views.Screen.Home/Payment/Shipping
+-   Implementation details:
+    -   Pull Request:
+    -   Specific implementation details:
+      - Phương thức **initialize** thuộc **Control Coupling** do phục thuộc vào hàm **HomeController** để lấy danh sách các phương tiện.
+      - Phương thức **addMediaHome** thuộc **Data Coupling** phụ thuộc vào dữ liệu từ danh sách **homeItems**, **hboxMedia**, và các trường trong **MediaHandler**
+      - Phương thức **addMenuItem** thuộc **Data Coupling** phụ thuộc vào dữ liệu từ **splitMenuBtnSearch** để thêm các mục menu vào **MenuButton**
+      - Phương thức **setBController** và **getBController** thuộc **Control Coupling** do phụ thuộc vào HomeController để gán và lấy **HomeController**
+
+      - Phương thức **displayWebView** thuộc **Control Coupling** phụ thuộc vào **PaymentController** để lấy URL thanh toán **(getUrlPay)** và **handleUrlChanged** để xử lý sự kiện thay đổi URL
+      - Phương thức **handleUrlChanged** thuộc **Control Coupling** phụ thuộc vào cấu trúc URI để lấy query string và phương thức **payOrder** để xử lý kết quả thanh toán
+      - Phương thức **payOrder** thuộc **Control Coupling** phụ thuộc vào **PaymentController** để thực hiện thanh toán và **ResultScreenHandler** để hiển thị kết quả
+
+      - Phương thức **submitDeliveryInfo** thuộc **Control Coupling** phụ thuộc vào **PlaceOrderController** để thực hiện xác nhận thông tin giao hàng, tính phí vận chuyển,..
+      - Sự kiện **(submitDeliveryInfo(MouseEvent event))** thuộc **Control Coupling** phụ thuộc vào phương thức **submitDeliveryInfo** để xử lý sự kiện khi người dùng nhấn nút "Submit".
+      - Trường biến **(name, phone, address, instructions, province)**thuộc **Data Coupling** phụ thuộc vào phương thức chứa dữ liệu nhập từ người dùng và được sử dụng để xác nhận thông tin giao hàng.
+      - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling**
+    </details>
