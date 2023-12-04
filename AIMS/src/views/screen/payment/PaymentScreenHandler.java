@@ -31,11 +31,12 @@ public class PaymentScreenHandler extends BaseScreenHandler {
         super(stage, screenPath);
         this.invoice = invoice;
 
-        displayWebView();
+        displayWebView(); // Control Coupling //Control Cohesion
 
     }
-// Control Coupling // Data Coupling 
-    private void displayWebView(){
+
+    // Control Coupling // Data Coupling 
+    private void displayWebView() {
         var paymentController = new PaymentController();
         var paymentUrl = paymentController.getUrlPay(invoice.getAmount(), "Thanh toan hoa don AIMS");
         WebView paymentView = new WebView();
@@ -51,6 +52,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
     }
 
     // Hàm chuyển đổi query string thành Map
+//Functional Cohesion
     private static Map<String, String> parseQueryString(String query) {
         Map<String, String> params = new HashMap<>();
         if (query != null && !query.isEmpty()) {
@@ -66,9 +68,11 @@ public class PaymentScreenHandler extends BaseScreenHandler {
     }
 
     /**
-     * @author NTVu 20204625 21/11/2023
+     * Xử lý khi URL thay đổi
+     *
      * @param newValue url vnPay return về
      */
+// Control Cohesion
     private void handleUrlChanged(String newValue) {
         if (newValue.contains(Config.vnp_ReturnUrl)) {
             try {
@@ -89,16 +93,19 @@ public class PaymentScreenHandler extends BaseScreenHandler {
     }
 
     /**
+     * Thực hiện thanh toán đơn hàng
+     *
      * @param res kết quả vnPay trả về
-     * @author NTVu 20204625
      * @throws IOException
      */
-    // Control Coupling
+// Control Coupling
+// Control Cohesion
     void payOrder(Map<String, String> res) throws IOException {
 
         var ctrl = (PaymentController) super.getBController();
         Map<String, String> response = ctrl.makePayment(res, this.invoice.getOrder().getId());
 
+        // Tạo và hiển thị màn hình kết quả
         BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, Configs.RESULT_SCREEN_PATH,
                 response.get("RESULT"), response.get("MESSAGE"));
         ctrl.emptyCart();
