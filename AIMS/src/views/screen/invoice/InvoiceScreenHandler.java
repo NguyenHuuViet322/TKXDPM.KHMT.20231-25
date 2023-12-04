@@ -57,6 +57,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
     private Invoice invoice;
 
     //Data coupling
+    //Functional Cohesion
     public InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
         super(stage, screenPath);
         this.invoice = invoice;
@@ -64,6 +65,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
     }
 
     //Control Coupling
+    //Functional Cohesion
     private void setInvoiceInfo() {
 
         name.setText(invoice.getOrder().getName());
@@ -91,6 +93,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 
 
     //Control Coupling
+    ////Functional Cohesion
     /**
      * @param event
      * @throws IOException

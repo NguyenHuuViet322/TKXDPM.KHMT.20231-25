@@ -50,6 +50,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     private Button btnPlaceOrder;
 
     //Control Coupling
+    //Functional Cohesion
     public CartScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
 
@@ -79,6 +80,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 
     //Khong xac dinh coupling
+    //Functional Cohesion
     /**
      * @return Label
      */
@@ -88,6 +90,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 
     //Khong xac dinh coupling
+    //Functional Cohesion
     /**
      * @return Label
      */
@@ -97,6 +100,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 
     //Khong xac dinh coupling
+    //Sequential Cohesion
     /**
      * @return ViewCartController
      */
@@ -106,6 +110,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 
     //Khong xac dinh coupling
+    //Functional Cohesion
     /**
      * @param prevScreen
      * @throws SQLException
@@ -120,6 +125,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 
     //Control coupling
+    //Procedural Cohesion
     /**
      * @throws SQLException
      * @throws IOException
@@ -165,6 +171,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
     //Khong xac dinh coupling
+    //Functional Cohesion
     void updateCartAmount() {
         // calculate subtotal and amount
         int subtotal = getBController().getCartSubtotal();
@@ -178,6 +185,7 @@ public class CartScreenHandler extends BaseScreenHandler {
         labelAmount.setText(Utils.getCurrencyFormat(amount));
     }
     //Control Coupling
+    //Functional Cohesion
     private void displayCartWithMediaAvailability() {
         // clear all old cartMedia
         vboxCart.getChildren().clear();

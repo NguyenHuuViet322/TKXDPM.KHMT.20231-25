@@ -41,11 +41,13 @@ public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
     private OrderMedia orderMedia;
 
     //Data Coupling
+    //Functional Cohesion
     public MediaInvoiceScreenHandler(String screenPath) throws IOException {
         super(screenPath);
     }
 
     //Data Coupling
+    //Functional Cohesion
     /**
      * @param orderMedia
      * @throws SQLException
@@ -56,6 +58,7 @@ public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
     }
 
     //Control Coupling
+    //Functional Cohesion
     /**
      * @throws SQLException
      */
