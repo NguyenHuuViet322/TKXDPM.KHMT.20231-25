@@ -119,3 +119,46 @@ This is a Capstone's source code for Software Design and Construction project
     Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
 
 </details>
+
+  <details>
+<summary>Chu Văn Việt</summary>
+<br>
+
+-   Assigned tasks:
+-   Task: Bổ sung Coupling cho views.screen.Popup, views.screen.BaseScreenHandler, views.screen.FXMLScreenHandler, views.screen.SplashScreenHandler
+-   Pull Request:
+
+    -   Specific implementation details:
+        **File PopupScreen:**
+
+        -   Data Coupling:
+            Hàm **popup(String message, String imagepath, Boolean undecorated)**: Hàm này có data coupling với các tham số đầu vào như `message`, `imagepath`, và `undecorated`.
+            Hàm **setImage(String path)**: Data coupling xuất hiện khi `path` được truyền vào hàm để đặt hình ảnh cho thành phần `tickicon`.
+            Hàm **success(String message)** và **error(String message)**: Data coupling xuất hiện thông qua tham số `message` được truyền vào hàm để đặt nội dung thông báo của popup.
+
+        -   Control Coupling:
+            Hàm **show(Boolean autoclose)** và **show(double time)**: Cả hai hàm này sử dụng biến **stage**, là một thành phần kiểm soát để hiển thị cửa sổ popup.
+
+        **File BaseScreenHandler:**
+
+        -   Data Coupling:
+            Hàm **setPreviousScreen(BaseScreenHandler prev)**: Data coupling xuất hiện khi tham chiếu đến màn hình trước đó (`prev`) được truyền vào hàm.
+            Hàm **forward(Hashtable messages)**: Data coupling xuất hiện khi `messages` được truyền vào hàm, làm thay đổi trạng thái của thuộc tính `messages` trong class.
+            Hàm **setHomeScreenHandler(HomeScreenHandler HomeScreenHandler)**: Data coupling xuất hiện khi **HomeScreenHandler** được truyền vào hàm. Dữ liệu liên kết giữa **BaseScreenHandler** và **HomeScreenHandler** thông qua việc thiết lập thuộc tính `homeScreenHandler`.
+            Hàm **setScreenTitle(String string)**: Data coupling xuất hiện khi `string` được truyền vào hàm để đặt tiêu đề của cửa sổ.
+            Hàm **setBController(BaseController bController)**: Data coupling xuất hiện khi `bController` được truyền vào hàm để thiết lập thuộc tính `bController`.
+
+        -   Control Coupling:
+            Hàm **show()**: Control coupling xuất hiện khi hàm này sử dụng `this.stage` để hiển thị cửa sổ.
+
+        **File SplashScreenHandler:**
+
+        -   Data Coupling:
+            Hàm **initialize(URL location, ResourceBundle resources)**: Data coupling xuất hiện khi đường dẫn hình ảnh `"assets/images/Logo.png"` được chọn một cách cụ thể. Nếu đường dẫn thay đổi, cần sửa lại trực tiếp trong code. Điều này tạo ra một mức độ phụ thuộc vào dữ liệu cụ thể trong mã nguồn.
+
+        -   Control Coupling:
+            Hàm **initialize(URL location, ResourceBundle resources)**: Có mức độ control coupling khi sử dụng trực tiếp `logo`, một thành phần FXML (JavaFX) được định nghĩa trong file FXML của splash screen. Hàm này sử dụng `logo` để đặt hình ảnh cho `ImageView`.
+
+        -   Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
+
+</details>
