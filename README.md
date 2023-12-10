@@ -138,10 +138,12 @@ This is a Capstone's source code for Software Design and Construction project
         -   Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
 
 </details>
-<details>
-  <summary>W14: 04/12/2023~11/12/2023 </summary>
-<br>
+</details>
 
+<details>
+  <summary>W14: 04/12/2023~10/12/2023 </summary>
+<br>
+<details>
 <summary>Nguyễn Thế Vũ</summary>
 <br>
   
@@ -159,5 +161,7 @@ This is a Capstone's source code for Software Design and Construction project
     Hàm **makePaymentTransaction**:
     - Functional Cohesion:
     Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
+
+</details>
 
 </details>
