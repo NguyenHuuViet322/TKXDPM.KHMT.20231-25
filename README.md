@@ -96,30 +96,6 @@ This is a Capstone's source code for Software Design and Construction project
     -   Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling**
     </details>
 
-<details>
-  <summary>W14: 04/12/2023~11/12/2023 </summary>
-<br>
-
-<summary>Nguyễn Thế Vũ</summary>
-<br>
-  
-- Assigned tasks:
-- Task: Bổ sung Cohesion cho package subSystem, refactor lại package subSystem
- - Pull Request: 
-  - Specific implementation details:
-
-    **File VnPaySubsystemController:**
-
-    Hàm **generatePayUrl**:
-    - Data Coupling:
-    Phương thức này thực hiện một nhiệm vụ duy nhất và liên quan đến việc tạo URL thanh toán dựa trên các tham số cung cấp. Các bước trong hàm tất cả đều hướng về một mục tiêu chung, không có sự phân tách rõ ràng giữa các chức năng. Điều này tăng tính đơn nhất và dễ bảo trì của hàm.
-
-    Hàm **makePaymentTransaction**:
-    - Functional Cohesion:
-    Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
-
-</details>
-
   <details>
 <summary>Chu Văn Việt</summary>
 <br>
@@ -160,5 +136,28 @@ This is a Capstone's source code for Software Design and Construction project
             Hàm **initialize(URL location, ResourceBundle resources)**: Có mức độ control coupling khi sử dụng trực tiếp `logo`, một thành phần FXML (JavaFX) được định nghĩa trong file FXML của splash screen. Hàm này sử dụng `logo` để đặt hình ảnh cho `ImageView`.
 
         -   Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
+
+</details>
+<details>
+  <summary>W14: 04/12/2023~11/12/2023 </summary>
+<br>
+
+<summary>Nguyễn Thế Vũ</summary>
+<br>
+  
+- Assigned tasks:
+- Task: Bổ sung Cohesion cho package subSystem, refactor lại package subSystem
+ - Pull Request: 
+  - Specific implementation details:
+
+    **File VnPaySubsystemController:**
+
+    Hàm **generatePayUrl**:
+    - Data Coupling:
+    Phương thức này thực hiện một nhiệm vụ duy nhất và liên quan đến việc tạo URL thanh toán dựa trên các tham số cung cấp. Các bước trong hàm tất cả đều hướng về một mục tiêu chung, không có sự phân tách rõ ràng giữa các chức năng. Điều này tăng tính đơn nhất và dễ bảo trì của hàm.
+
+    Hàm **makePaymentTransaction**:
+    - Functional Cohesion:
+    Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
 
 </details>
