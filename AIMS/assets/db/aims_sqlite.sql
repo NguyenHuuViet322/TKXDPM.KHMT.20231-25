@@ -93,7 +93,7 @@ CREATE TABLE "aims"."OrderMedia"
             REFERENCES "Order" ("id")
 );
 CREATE INDEX "aims"."OrderMedia.fk_ordermedia_order_idx" ON "OrderMedia" ("orderID");
-CREATE TABLE "aims"."Transaction"
+CREATE TABLE "aims"."PaymentTransaction"
 (
     "id"       INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "orderID"  INTEGER     NOT NULL,
@@ -103,5 +103,5 @@ CREATE TABLE "aims"."Transaction"
         FOREIGN KEY ("orderID")
             REFERENCES "Order" ("id")
 );
-CREATE INDEX "aims"."Transaction.fk_transaction_order_idx" ON "Transaction" ("orderID");
+CREATE INDEX "aims"."Transaction.fk_transaction_order_idx" ON PaymentTransaction ("orderID");
 COMMIT;
