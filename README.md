@@ -96,6 +96,7 @@ This is a Capstone's source code for Software Design and Construction project
     -   Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling**
     </details>
 
+</details>
   <details>
 <summary>Chu Văn Việt</summary>
 <br>
@@ -163,5 +164,64 @@ This is a Capstone's source code for Software Design and Construction project
     Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
 
 </details>
+</details>
 
+<details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+<br>
+  
+- Assigned tasks:
+- Task: Bổ sung Cohesion cho package package Views.Screen.Home/Payment/Shipping
+ - Pull Request: 
+  - Specific implementation details:
+
+    **File HomeScreenHandler:**
+    Hàm **initialize**:
+    - Control Cohesion: 
+    Phương thức này có control cohesion vì nó chịu trách nhiệm thiết lập controller và tạo danh sách các mục trên màn hình chủ.
+
+    Hàm **setImage**:
+    - Data Cohesion: 
+    Phương thức này có data cohesion vì nó chỉ liên quan đến việc đặt hình ảnh cho Logo và Icon giỏ hàng.
+
+    Hàm **addMediaHome**:
+    - Data Cohesion: 
+    Phương thức này có data cohesion vì nó chỉ thêm các mục truyền vào vào màn hình chủ.
+
+    Hàm **addMenuItem**:
+    - Data Cohesion: 
+    Phương thức này có data cohesion vì nó chỉ thêm mục menu vào **splitMenuBtnSearch** dựa trên tham số được cung cấp.
+
+
+    **File PaymentScreenHandler**
+    Hàm **displayWebView**:
+    - Control Cohesion: 
+    Phương thức này có control cohesion vì nó liên quan chặt chẽ đến việc hiển thị WebView và xử lý sự kiện khi URL thay đổi.
+
+    Hàm **parseQueryString**:
+    - Functional Cohesion: 
+    Phương thức này có functional cohesion vì nó chỉ thực hiện một nhiệm vụ cụ thể: chuyển đổi query string thành một đối tượng Map<String, String>.
+
+    Hàm **handleUrlChanged**:
+    - Control Cohesion: 
+    Phương thức này có control cohesion vì nó chịu trách nhiệm xử lý sự kiện khi URL thay đổi và chuyển đổi query thành Map.
+
+    Hàm **payOrder**:
+    - Control Cohesion: 
+    Phương thức này có control cohesion vì nó chịu trách nhiệm xử lý thanh toán và hiển thị màn hình kết quả.
+
+    **File ShippingScreenHandler:**
+    Hàm **initialize**:
+    - Data Cohesion: 
+    Phương thức này có data cohesion vì nó chỉ liên quan đến việc thiết lập trạng thái ban đầu của giao diện người dùng.
+    Hàm **submitDeliveryInfo**:
+
+    - Control Cohesion: 
+    Phương thức này có control cohesion vì nó chịu trách nhiệm xử lý sự kiện khi người dùng nhấn nút "submitDeliveryInfo" và liên quan chặt chẽ đến việc kiểm tra và xử lý thông tin giao hàng.
+
+    Hàm **getBController**:
+    - Data Cohesion: 
+    Phương thức này có data cohesion vì nó chỉ trả về một đối tượng **PlaceOrderController** (controller cho việc đặt hàng)
+
+</details>
 </details>
