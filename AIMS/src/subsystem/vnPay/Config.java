@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
+ * No Coupling
+ * No cohesion (Đối với toàn bộ phương thức)
  * @author CTT VNPAY
  */
 public class Config {

@@ -56,6 +56,7 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
      * @param arg1
      */
     @Override
+// Data Cohesion
     public void initialize(URL arg0, ResourceBundle arg1) {
         final BooleanProperty firstTime = new SimpleBooleanProperty(true); // Variable to store the focus on stage load
         name.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -74,11 +75,13 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
      * @throws SQLException
      */
     @FXML
+// Control Coupling
+// Control Cohesion
     void submitDeliveryInfo(MouseEvent event) throws IOException, InterruptedException, SQLException {
 
         // add info to messages
-        HashMap messages = new HashMap<>();
-        messages.put("name", name.getText());
+        HashMap messages = new HashMap<>(); 
+        messages.put("name", name.getText()); // Data Coupling 
         messages.put("phone", phone.getText());
         messages.put("address", address.getText());
         messages.put("instructions", instructions.getText());
@@ -139,6 +142,7 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
     /**
      * @return PlaceOrderController
      */
+// Data Cohesion
     public PlaceOrderController getBController() {
         return (PlaceOrderController) super.getBController();
     }

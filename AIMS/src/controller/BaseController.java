@@ -21,7 +21,6 @@ public class BaseController {
      * @param media media object
      * @return CartMedia or null
      */
-
     //Functional Cohesion
     //Control Coupling
     public CartMedia checkMediaInCart(Media media) {

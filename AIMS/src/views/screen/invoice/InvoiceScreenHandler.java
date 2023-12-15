@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import subsystem.VnPaySubsystem;
+//import subsystem.VnPaySubsystem;
 import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
@@ -56,12 +56,14 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 
     private Invoice invoice;
 
+    //Data coupling
     public InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
         super(stage, screenPath);
         this.invoice = invoice;
         setInvoiceInfo();
     }
 
+    //Control Coupling
     private void setInvoiceInfo() {
 
         name.setText(invoice.getOrder().getName());
@@ -88,6 +90,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
     }
 
 
+    //Control Coupling
     /**
      * @param event
      * @throws IOException

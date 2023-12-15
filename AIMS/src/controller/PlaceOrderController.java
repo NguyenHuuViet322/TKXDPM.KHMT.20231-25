@@ -38,6 +38,7 @@ public class PlaceOrderController extends BaseController {
      * @return Order
      * @throws SQLException
      */
+
     //Functional Cohesion
     //Control Coupling
     public Order createOrder() throws SQLException {
@@ -58,6 +59,7 @@ public class PlaceOrderController extends BaseController {
      * @param order
      * @return Invoice
      */
+
     //Functional Cohesion
     //Control coupling
     public Invoice createInvoice(Order order) {
@@ -72,6 +74,7 @@ public class PlaceOrderController extends BaseController {
      * @throws InterruptedException
      * @throws IOException
      */
+
     //Coincidental Cohesion
     //Data Coupling
     public void processDeliveryInfo(HashMap info) throws InterruptedException, IOException {
@@ -96,6 +99,7 @@ public class PlaceOrderController extends BaseController {
      * @param phoneNumber
      * @return boolean
      */
+
     //Functional Cohesion
     //Control Coupling
     public boolean validatePhoneNumber(String phoneNumber) {
@@ -117,6 +121,7 @@ public class PlaceOrderController extends BaseController {
      * @param name
      * @return boolean
      */
+
     //Functional Cohesion
     //Control Coupling
     public boolean validateContainLetterAndNoEmpty(String name) {
@@ -139,6 +144,7 @@ public class PlaceOrderController extends BaseController {
      * @param order
      * @return shippingFee
      */
+
     //Không xác định cohesion
     //không xác định coupling
     public int calculateShippingFee(int amount) {
@@ -154,6 +160,7 @@ public class PlaceOrderController extends BaseController {
      * @return media
      * @throws SQLException
      */
+
     //Functional Cohesion
     //Control Coupling
     public Media getProductAvailablePlaceRush(Order order) throws SQLException {
@@ -173,6 +180,7 @@ public class PlaceOrderController extends BaseController {
      * @param address
      * @return boolean
      */
+
     //Functional Cohesion
     //Control Coupling
     public boolean validateAddressPlaceRushOrder(String province, String address) {
@@ -187,6 +195,7 @@ public class PlaceOrderController extends BaseController {
     /**
      * @return boolean
      */
+
     //Functional Cohesion
     //Control Coupling
     public boolean validateMediaPlaceRushorder() {
