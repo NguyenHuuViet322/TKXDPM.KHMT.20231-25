@@ -164,6 +164,77 @@ This is a Capstone's source code for Software Design and Construction project
     Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
 
 </details>
+<details>
+<summary>Nguyễn Hữu Việt</summary>
+<br>
+  
+- Assigned tasks:
+  - Task: Bổ sung Cohesion cho package controller
+ - Pull Request: 
+  - Specific implementation details:
+
+    **File BaseController:**
+
+    Hàm **checkMediaInCart(Media media)**:
+    - Functional Cohesion:
+    Hàm này có mục đích cụ thể là kiểm tra xem một đối tượng Media có trong giỏ hàng (Cart) hay không và trả về đối tượng CartMedia nếu có, ngược lại trả về null. Nó thực hiện một nhiệm vụ cụ thể và liên quan chặt chẽ đến chức năng của giỏ hàng.
+
+    Hàm **getListCartMedia()**:
+    - Functional Cohesion:
+    Hàm này có mục đích là trả về danh sách các mục trong giỏ hàng. Nó thực hiện một chức năng cụ thể và liên quan chặt chẽ đến chức năng của giỏ hàng.
+
+    **File HomeController:**
+
+    Hàm **getAllMedia()**:
+    - Coincidental Cohesion:
+    Hàm này có mục đích là lấy tất cả các đối tượng Media từ cơ sở dữ liệu và trả về danh sách để hiển thị. Tuy nhiên, mặc dù chức năng này liên quan đến đối tượng Media, nó không liên quan chặt chẽ đến chức năng của HomeController như quản lý giỏ hàng. Hàm này chỉ là một phần nhỏ của chức năng tổng thể của HomeController.
+
+    **File PaymentController:**
+
+    Hàm **makePayment(Map<String, String> res, int orderId)**:
+    - Functional Cohesion:
+    Hàm này có mục đích thực hiện quá trình thanh toán. Nó gọi đến một đối tượng VnPaySubsystem để thực hiện giao dịch thanh toán và lưu trữ thông tin giao dịch. Chức năng này liên quan chặt chẽ đến quá trình thanh toán và quản lý đơn hàng.
+    Hàm **getUrlPay(int amount, String content)**:
+    - Functional Cohesion:
+    Hàm này có mục đích là tạo URL thanh toán từ VnPaySubsystem. Chức năng này liên quan chặt chẽ đến việc tạo URL thanh toán từ subsystem VnPay.
+    Hàm **emptyCart()**:
+    - Functional Cohesion:
+    Hàm này có mục đích là làm rỗng giỏ hàng. Chức năng này liên quan chặt chẽ đến quá trình quản lý giỏ hàng.
+
+    **File PaymentController:**
+
+    Hàm **placeOrder()**:
+    - Coincidental Cohesion:
+    Hàm này kiểm tra sự có sẵn của sản phẩm khi người dùng nhấn nút Place Order. Tuy nhiên, chức năng này không liên quan chặt chẽ đến các chức năng khác của PlaceOrderController, như tạo đơn đặt hàng hay tạo Invoice.
+    Hàm **createOrder()**:
+    - Functional Cohesion:
+    Hàm này tạo đơn đặt hàng dựa trên thông tin từ giỏ hàng (Cart). Chức năng này liên quan chặt chẽ đến việc tạo đơn đặt hàng.
+    Hàm **createInvoice(Order order)**:
+    - Functional Cohesion:
+    Hàm này tạo hóa đơn dựa trên thông tin từ đơn đặt hàng. Chức năng này liên quan chặt chẽ đến việc tạo hóa đơn từ đơn đặt hàng.
+    Hàm **processDeliveryInfo(HashMap info)**:
+    - Functional Cohesion:
+    Hàm này xử lý thông tin giao hàng, nhưng gọi một hàm khác validateDeliveryInfo(HashMap<String, String> info) để thực hiện việc kiểm tra.
+    Hàm **validatePhoneNumber(String phoneNumber)** và **validateContainLetterAndNoEmpty(String name)** và **validateAddressPlaceRushOrder(String province, String address)** và **validateMediaPlaceRushorder()**:
+    - Functional Cohesion:
+    Hàm **getProductAvailablePlaceRush(Order order)**:
+    - Functional Cohesion:
+    Hàm này tạo hóa đơn dựa trên thông tin từ đơn đặt hàng. Chức năng này liên quan chặt chẽ đến việc tạo hóa đơn từ đơn đặt hàng.
+    - Functional Cohesion:
+
+    **File PlaceRushOrderController:**
+
+    Hàm **validatePlaceRushOrderData(Shipment deliveryData)**:
+    - Coincidental Cohesion:
+    Hàm này có mục đích kiểm tra dữ liệu của đơn hàng đặt gấp. Chức năng này liên quan chặt chẽ đến việc xác thực dữ liệu của đơn hàng đặt gấp.
+
+    **File ViewCartController:**
+
+    Hàm **checkAvailabilityOfProduct()**:
+    - Functional  Cohesion:
+    Hàm này có mục đích kiểm tra sự có sẵn của sản phẩm trong giỏ hàng. Chức năng này liên quan chặt chẽ đến việc kiểm tra sản phẩm trong giỏ hàng.
+
+</details>
 </details>
 
 <details>
