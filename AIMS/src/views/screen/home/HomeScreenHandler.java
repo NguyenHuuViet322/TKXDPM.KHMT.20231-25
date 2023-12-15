@@ -69,6 +69,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     /**
      * @return Label
      */
+//Functional Cohesion
     public Label getNumMediaCartLabel() {
         return this.numMediaInCart;
     }
@@ -76,11 +77,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     /**
      * @return HomeController
      */
+//Functional Cohesion
     public HomeController getBController() {
         return (HomeController) super.getBController();
     }
 
     @Override
+//Sequential Cohesion
     public void show() {
         numMediaInCart.setText(String.valueOf(Cart.getCart().getListMedia().size()) + " media");
         super.show();
@@ -91,6 +94,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
      * @param arg1
      */
     @Override
+// Control Coupling
+// Control Cohesion
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
         try {
@@ -127,7 +132,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         addMenuItem(1, "DVD", splitMenuBtnSearch);
         addMenuItem(2, "CD", splitMenuBtnSearch);
     }
-
+//Data Coupling 
+//Data Cohesion
     public void setImage() {
         // fix image path caused by fxml
         File file1 = new File(Configs.IMAGE_PATH + "/" + "Logo.png");
@@ -142,6 +148,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     /**
      * @param items
      */
+//Data Coupling 
+//Data Cohesion
     public void addMediaHome(List items) {
         ArrayList mediaItems = (ArrayList) ((ArrayList) items).clone();
         hboxMedia.getChildren().forEach(node -> {
@@ -167,6 +175,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
      * @param text
      * @param menuButton
      */
+
+// Data Coupling 
+// Data Cohesion
     private void addMenuItem(int position, String text, MenuButton menuButton) {
         MenuItem menuItem = new MenuItem();
         Label label = new Label();
