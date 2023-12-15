@@ -17,11 +17,12 @@ public class PlaceRushOrderController extends BaseController {
     private static Logger LOGGER = utils.Utils.getLogger(PlaceRushOrderController.class.getName());
 
 
-    //Common Coupling
     /**
      * @param deliveryData
      * @param typeDelivery
      */
+    //Functional Cohesion
+    //Common Coupling
     public static void validatePlaceRushOrderData(Shipment deliveryData) {
         if (deliveryData.getShipType() == utils.Configs.PLACE_RUSH_ORDER) {
            // validate

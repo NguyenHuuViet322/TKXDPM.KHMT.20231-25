@@ -71,7 +71,8 @@ public class PaymentController extends BaseController {
 //   * @return {@link java.util.Map Map} represent the payment result with a
 //   *         message.
 //   */
-//Control Coupling
+    //Functional Cohesion
+    //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
 
@@ -98,12 +99,14 @@ public class PaymentController extends BaseController {
      * @param content
      * @return
      */
+    //Functional Cohesion
     //Data Coupling
     public String getUrlPay(int amount, String content){
         vnPayService = new VnPaySubsystem();
         var url = vnPayService.generatePayUrl(amount, content);
         return url;
     }
+    //Functional Cohesion
     //Control Coupling
     public void emptyCart() {
         Cart.getCart().emptyCart();
