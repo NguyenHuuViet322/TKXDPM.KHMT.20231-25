@@ -21,36 +21,31 @@ import java.util.Map;
 public class PaymentScreenHandler extends BaseScreenHandler {
 
     private Invoice invoice;
+
     @FXML
     private Label pageTitle;
+
     @FXML
     private VBox vBox;
-
 
     public PaymentScreenHandler(Stage stage, String screenPath, Invoice invoice) throws IOException {
         super(stage, screenPath);
         this.invoice = invoice;
 
         displayWebView();
-
     }
-// Control Coupling // Data Coupling 
-    private void displayWebView(){
-        var paymentController = new PaymentController();
-        var paymentUrl = paymentController.getUrlPay(invoice.getAmount(), "Thanh toan hoa don AIMS");
+
+    private void displayWebView() {
+        PaymentController paymentController = new PaymentController();
+        String paymentUrl = paymentController.getUrlPay(invoice.getAmount(), "Thanh toan hoa don AIMS");
         WebView paymentView = new WebView();
         WebEngine webEngine = paymentView.getEngine();
         webEngine.load(paymentUrl);
-        webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
-            // Xử lý khi URL thay đổi
-            // Data Coupling // Control Coupling
-            handleUrlChanged(newValue);
-        });
+        webEngine.locationProperty().addListener((observable, oldValue, newValue) -> handleUrlChanged(newValue));
         vBox.getChildren().clear();
         vBox.getChildren().add(paymentView);
     }
 
-    // Hàm chuyển đổi query string thành Map
     private static Map<String, String> parseQueryString(String query) {
         Map<String, String> params = new HashMap<>();
         if (query != null && !query.isEmpty()) {
@@ -65,48 +60,33 @@ public class PaymentScreenHandler extends BaseScreenHandler {
         return params;
     }
 
-    /**
-     * @author NTVu 20204625 21/11/2023
-     * @param newValue url vnPay return về
-     */
     private void handleUrlChanged(String newValue) {
         if (newValue.contains(Config.vnp_ReturnUrl)) {
             try {
                 URI uri = new URI(newValue);
                 String query = uri.getQuery();
-
-                // Chuyển đổi query thành Map
                 Map<String, String> params = parseQueryString(query);
-
                 payOrder(params);
-
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (URISyntaxException | IOException e) {
+                handleException(e);
             }
         }
     }
 
-    /**
-     * @param res kết quả vnPay trả về
-     * @author NTVu 20204625
-     * @throws IOException
-     */
-    // Control Coupling
-    void payOrder(Map<String, String> res) throws IOException {
-
-        var ctrl = (PaymentController) super.getBController();
-        Map<String, String> response = ctrl.makePayment(res, this.invoice.getOrder().getId());
-
-        BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, Configs.RESULT_SCREEN_PATH,
-                response.get("RESULT"), response.get("MESSAGE"));
-        ctrl.emptyCart();
+    private void payOrder(Map<String, String> res) throws IOException {
+        PaymentController paymentController = (PaymentController) super.getBController();
+        Map<String, String> response = paymentController.makePayment(res, this.invoice.getOrder().getId());
+        BaseScreenHandler resultScreen = new ResultScreenHandler(
+                this.stage, Configs.RESULT_SCREEN_PATH, response.get("RESULT"), response.get("MESSAGE"));
+        paymentController.emptyCart();
         resultScreen.setPreviousScreen(this);
         resultScreen.setHomeScreenHandler(homeScreenHandler);
         resultScreen.setScreenTitle("Result Screen");
         resultScreen.show();
-
     }
 
+    private void handleException(Exception e) {
+        // Handle exception appropriately (log, display message, etc.)
+        e.printStackTrace();
+    }
 }

@@ -1,9 +1,11 @@
-package views.screen.shipping;
+package com.example.views.screen.shipping;
 
-import common.exception.InvalidDeliveryInfoException;
-import controller.PlaceOrderController;
-import entity.invoice.Invoice;
-import entity.order.Order;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -13,16 +15,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import utils.Configs;
-import views.screen.BaseScreenHandler;
-import views.screen.invoice.InvoiceScreenHandler;
-import views.screen.popup.PopupScreen;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import com.example.common.exception.InvalidDeliveryInfoException;
+import com.example.controller.PlaceOrderController;
+import com.example.entity.order.Order;
+import com.example.utils.Configs;
+import com.example.views.screen.BaseScreenHandler;
+import com.example.views.screen.delivery.DeliveryMethodsScreenHandler;
+import com.example.views.screen.invoice.InvoiceScreenHandler;
+import com.example.views.screen.popup.PopupScreen;
 
 public class ShippingScreenHandler extends BaseScreenHandler implements Initializable {
 
@@ -51,65 +52,56 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
         this.order = order;
     }
 
-    /**
-     * @param arg0
-     * @param arg1
-     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        final BooleanProperty firstTime = new SimpleBooleanProperty(true); // Variable to store the focus on stage load
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
         name.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue && firstTime.get()) {
-                content.requestFocus(); // Delegate the focus to container
-                firstTime.setValue(false); // Variable value changed for future references
+                content.requestFocus();
+                firstTime.setValue(false);
             }
         });
         this.province.getItems().addAll(Configs.PROVINCES);
     }
 
-    /**
-     * @param event
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws SQLException
-     */
     @FXML
-// Control Coupling
-    void submitDeliveryInfo(MouseEvent event) throws IOException, InterruptedException, SQLException {
+    void handleSubmitDeliveryInfo(MouseEvent event) throws IOException, InterruptedException, SQLException {
 
-        // add info to messages
-        HashMap messages = new HashMap<>(); 
-        messages.put("name", name.getText()); // Data Coupling 
+        HashMap<String, String> messages = new HashMap<>();
+        messages.put("name", name.getText());
         messages.put("phone", phone.getText());
         messages.put("address", address.getText());
         messages.put("instructions", instructions.getText());
         messages.put("province", province.getValue());
-        var placeOrderCtrl = getBController();
+        
+        PlaceOrderController placeOrderCtrl = getBController();
+
         if (!placeOrderCtrl.validateContainLetterAndNoEmpty(name.getText())) {
             PopupScreen.error("Name is not valid!");
             return;
         }
+
         if (!placeOrderCtrl.validatePhoneNumber(phone.getText())) {
             PopupScreen.error("Phone is not valid!");
             return;
-
         }
+
         if (!placeOrderCtrl.validateContainLetterAndNoEmpty(address.getText())) {
             PopupScreen.error("Address is not valid!");
             return;
         }
+
         if (province.getValue() == null) {
             PopupScreen.error("Province is empty!");
             return;
         }
+
         try {
-            // process and validate delivery info
             getBController().processDeliveryInfo(messages);
         } catch (InvalidDeliveryInfoException e) {
-            throw new InvalidDeliveryInfoException(e.getMessage());
+            handleException(e);
         }
 
-        // calculate shipping fees
         int shippingFees = getBController().calculateShippingFee(order.getAmount());
         order.setShippingFees(shippingFees);
         order.setName(name.getText());
@@ -118,31 +110,15 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
         order.setAddress(address.getText());
         order.setInstruction(instructions.getText());
 
-
-//        // // create invoice screen
-//        Invoice invoice = getBController().createInvoice(order);
-//        BaseScreenHandler InvoiceScreenHandler = new InvoiceScreenHandler(this.stage, Configs.INVOICE_SCREEN_PATH, invoice);
-//        InvoiceScreenHandler.setPreviousScreen(this);
-//        InvoiceScreenHandler.setHomeScreenHandler(homeScreenHandler);
-//        InvoiceScreenHandler.setScreenTitle("Invoice Screen");
-//        InvoiceScreenHandler.setBController(getBController());
-//        InvoiceScreenHandler.show();
-
-        //create delivery method screen
-        BaseScreenHandler DeliveryMethodsScreenHandler = new DeliveryMethodsScreenHandler(this.stage, Configs.DELIVERY_METHODS_PATH, this.order);
-        DeliveryMethodsScreenHandler.setPreviousScreen(this);
-        DeliveryMethodsScreenHandler.setHomeScreenHandler(homeScreenHandler);
-        DeliveryMethodsScreenHandler.setScreenTitle("Delivery method screen");
-        DeliveryMethodsScreenHandler.setBController(getBController());
-        DeliveryMethodsScreenHandler.show();
+        navigateToDeliveryMethodsScreen();
     }
 
-    /**
-     * @return PlaceOrderController
-     */
     public PlaceOrderController getBController() {
         return (PlaceOrderController) super.getBController();
     }
 
-
-}
+    private void navigateToDeliveryMethodsScreen() throws IOException {
+        BaseScreenHandler deliveryMethodsScreenHandler = new DeliveryMethodsScreenHandler(
+                this.stage, Configs.DELIVERY_METHODS_PATH, this.order);
+        deliveryMethodsScreenHandler.setPreviousScreen(this);
+        deliveryMethodsScreenHandler.setHome

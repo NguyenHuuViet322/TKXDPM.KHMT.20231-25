@@ -1,4 +1,16 @@
-package views.screen.home;
+package com.example.views.screen.home;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import common.exception.ViewCartException;
 import controller.HomeController;
@@ -22,19 +34,9 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
-
 public class HomeScreenHandler extends BaseScreenHandler implements Initializable {
 
-    public static Logger LOGGER = Utils.getLogger(HomeScreenHandler.class.getName());
+    private static final Logger LOGGER = Utils.getLogger(HomeScreenHandler.class.getName());
 
     @FXML
     private Label numMediaInCart;
@@ -60,22 +62,16 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
 
-    private List homeItems;
+    private List<MediaHandler> homeItems;
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
 
-    /**
-     * @return Label
-     */
     public Label getNumMediaCartLabel() {
         return this.numMediaInCart;
     }
 
-    /**
-     * @return HomeController
-     */
     public HomeController getBController() {
         return (HomeController) super.getBController();
     }
@@ -86,91 +82,78 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         super.show();
     }
 
-    /**
-     * @param arg0
-     * @param arg1
-     */
     @Override
-// Control Coupling
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
+
         try {
-            List medium = getBController().getAllMedia();
-            this.homeItems = new ArrayList<>();
-            for (Object object : medium) {
-                Media media = (Media) object;
-                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
-                this.homeItems.add(m1);
-            }
+            initializeMedia();
+            initializeEventHandlers();
+            addMediaHome(homeItems);
+            addMenuItems();
         } catch (SQLException | IOException e) {
-            LOGGER.info("Errors occured: " + e.getMessage());
-            e.printStackTrace();
+            handleInitializationError(e);
         }
+    }
 
-        aimsImage.setOnMouseClicked(e -> {
-            addMediaHome(this.homeItems);
-        });
+    private void initializeMedia() throws SQLException, IOException {
+        List<Media> mediaList = getBController().getAllMedia();
+        homeItems = new ArrayList<>();
+        
+        for (Media media : mediaList) {
+            MediaHandler mediaHandler = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
+            homeItems.add(mediaHandler);
+        }
+    }
 
-        cartImage.setOnMouseClicked(e -> {
+    private void initializeEventHandlers() {
+        aimsImage.setOnMouseClicked(e -> addMediaHome(homeItems));
+        cartImage.setOnMouseClicked(e -> handleCartImageClick());
+    }
 
-            try {
+    private void handleCartImageClick() {
+        try {
+            var cartScreen = new CartScreenHandler(stage, Configs.CART_SCREEN_PATH);
+            cartScreen.setHomeScreenHandler(this);
+            cartScreen.setBController(new ViewCartController());
+            cartScreen.show(this);
+        } catch (IOException | SQLException e) {
+            throw new ViewCartException(Arrays.toString(e.getStackTrace()).replaceAll(", ", "\n"));
+        }
+    }
 
-                var cartScreen = new CartScreenHandler(this.stage, Configs.CART_SCREEN_PATH);
-                cartScreen.setHomeScreenHandler(this);
-                cartScreen.setBController(new ViewCartController());
-                cartScreen.show(this);
-            } catch (IOException | SQLException e1) {
-                throw new ViewCartException(Arrays.toString(e1.getStackTrace()).replaceAll(", ", "\n"));
-            }
-        });
-        addMediaHome(this.homeItems);
+    private void addMenuItems() {
         addMenuItem(0, "Book", splitMenuBtnSearch);
         addMenuItem(1, "DVD", splitMenuBtnSearch);
         addMenuItem(2, "CD", splitMenuBtnSearch);
     }
-//Data Coupling 
-    public void setImage() {
-        // fix image path caused by fxml
-        File file1 = new File(Configs.IMAGE_PATH + "/" + "Logo.png");
-        Image img1 = new Image(file1.toURI().toString());
-        aimsImage.setImage(img1);
 
-        File file2 = new File(Configs.IMAGE_PATH + "/" + "cart.png");
-        Image img2 = new Image(file2.toURI().toString());
-        cartImage.setImage(img2);
+    public void setImage() {
+        setImageViewImage(aimsImage, "Logo.png");
+        setImageViewImage(cartImage, "cart.png");
     }
 
-    /**
-     * @param items
-     */
-//Data Coupling 
-    public void addMediaHome(List items) {
-        ArrayList mediaItems = (ArrayList) ((ArrayList) items).clone();
+    private void setImageViewImage(ImageView imageView, String imageName) {
+        Path imagePath = Paths.get(Configs.IMAGE_PATH, imageName);
+        File file = imagePath.toFile();
+        Image image = new Image(file.toURI().toString());
+        imageView.setImage(image);
+    }
+
+    public void addMediaHome(List<MediaHandler> items) {
         hboxMedia.getChildren().forEach(node -> {
             VBox vBox = (VBox) node;
             vBox.getChildren().clear();
         });
-        while (!mediaItems.isEmpty()) {
-            hboxMedia.getChildren().forEach(node -> {
-                int vid = hboxMedia.getChildren().indexOf(node);
-                VBox vBox = (VBox) node;
-                while (vBox.getChildren().size() < 3 && !mediaItems.isEmpty()) {
-                    MediaHandler media = (MediaHandler) mediaItems.get(0);
-                    vBox.getChildren().add(media.getContent());
-                    mediaItems.remove(media);
-                }
-            });
-            return;
+
+        for (VBox vBox : hboxMedia.getChildren()) {
+            while (vBox.getChildren().size() < 3 && !items.isEmpty()) {
+                MediaHandler mediaHandler = items.remove(0);
+                vBox.getChildren().add(mediaHandler.getContent());
+            }
         }
     }
 
-    /**
-     * @param position
-     * @param text
-     * @param menuButton
-     */
-
-// Data Coupling 
     private void addMenuItem(int position, String text, MenuButton menuButton) {
         MenuItem menuItem = new MenuItem();
         Label label = new Label();
@@ -178,26 +161,28 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         label.setText(text);
         label.setTextAlignment(TextAlignment.RIGHT);
         menuItem.setGraphic(label);
-        menuItem.setOnAction(e -> {
-            // empty home media
-            hboxMedia.getChildren().forEach(node -> {
-                VBox vBox = (VBox) node;
-                vBox.getChildren().clear();
-            });
-
-            // filter only media with the choosen category
-            List filteredItems = new ArrayList<>();
-            homeItems.forEach(me -> {
-                MediaHandler media = (MediaHandler) me;
-                if (media.getMedia().getTitle().toLowerCase().startsWith(text.toLowerCase())) {
-                    filteredItems.add(media);
-                }
-            });
-
-            // fill out the home with filted media as category
-            addMediaHome(filteredItems);
-        });
+        menuItem.setOnAction(e -> handleMenuItemClick(text));
         menuButton.getItems().add(position, menuItem);
     }
 
+    private void handleMenuItemClick(String category) {
+        hboxMedia.getChildren().forEach(node -> {
+            VBox vBox = (VBox) node;
+            vBox.getChildren().clear();
+        });
+
+        List<MediaHandler> filteredItems = new ArrayList<>();
+        homeItems.forEach(mediaHandler -> {
+            if (mediaHandler.getMedia().getTitle().toLowerCase().startsWith(category.toLowerCase())) {
+                filteredItems.add(mediaHandler);
+            }
+        });
+
+        addMediaHome(filteredItems);
+    }
+
+    private void handleInitializationError(Exception e) {
+        LOGGER.info("Initialization error: " + e.getMessage());
+        e.printStackTrace();
+    }
 }
