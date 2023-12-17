@@ -6,9 +6,11 @@ import entity.invoice.Invoice;
 import entity.media.Media;
 import entity.order.Order;
 import entity.order.OrderMedia;
+import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -58,6 +60,7 @@ public class PlaceOrderController extends BaseController {
      */
     //Control coupling
     public Invoice createInvoice(Order order) {
+
         order.createOrderEntity();
         return new Invoice(order);
     }

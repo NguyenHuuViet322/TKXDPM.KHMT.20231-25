@@ -11,8 +11,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * No Coupling
- * No cohesion (Đối với toàn bộ phương thức)
+ *
  * @author CTT VNPAY
  */
 public class Config {
@@ -23,6 +22,8 @@ public class Config {
     public static String vnp_TmnCode = "TXOOZNX4";
     public static String secretKey = "HUQHTRVXVRGJJWHMBFCAUBAXOSAJBIND";
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+
+
 
     public static String md5(String message) {
         String digest = null;
@@ -115,7 +116,8 @@ public class Config {
 //                return "No ip found";
 //            }
 //        }
-        return "127.0.0.1:50387";
+//        return "127.0.0.1:50387";
+        return "123.123.123.123";
     }
 
     public static String getRandomNumber(int len) {

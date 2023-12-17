@@ -5,7 +5,7 @@ import entity.db.AIMSDB;
 import java.sql.*;
 import java.util.Date;
 
-public class PaymentTransaction {
+public class RefundTransaction {
     private String errorCode;
     private String transactionNo;
     private String transactionContent;
@@ -46,7 +46,7 @@ public class PaymentTransaction {
         this.createdAt = createdAt;
     }
 
-    private String cardType;
+
 
     public void setAmount(int amount) {
         this.amount = amount;
@@ -63,21 +63,15 @@ public class PaymentTransaction {
         this.txnRef = txnRef;
     }
 
-    public String getCardType() {
-        return cardType;
-    }
 
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
 
-    public PaymentTransaction(){}
-    public PaymentTransaction(String errorCode, String transactionNo, String transactionContent,
-                              int amount, Date createdAt, String cardType, String txnRef) {
+    public RefundTransaction(){}
+    public RefundTransaction(String errorCode, String transactionNo, String transactionContent,
+                              int amount, Date createdAt, String txnRef) {
         super();
         this.errorCode = errorCode;
 
-        this.cardType = cardType;
+
         this.txnRef = txnRef;
         this.transactionNo = transactionNo;
         this.transactionContent = transactionContent;
@@ -102,15 +96,15 @@ public class PaymentTransaction {
         try {
             Statement stm = AIMSDB.getConnection().createStatement();
 
-            String query = "INSERT INTO PaymentTransaction ( orderID, createdAt, content, txnRef, cardType, amount, transactionNo) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO RefundTransaction ( orderID, createdAt, content, txnRef, amount, transactionNo) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query)) {
                 preparedStatement.setInt(1, orderID);
                 preparedStatement.setDate(2, new java.sql.Date(createdAt.getTime()));
                 preparedStatement.setString(3, transactionContent);
                 preparedStatement.setString(4, txnRef);
-                preparedStatement.setString(5, cardType);
+
                 preparedStatement.setInt(6, amount);
                 preparedStatement.setString(7, transactionNo);
 

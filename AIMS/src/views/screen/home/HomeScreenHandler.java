@@ -2,15 +2,13 @@ package views.screen.home;
 
 import common.exception.ViewCartException;
 import controller.HomeController;
+import controller.OrderController;
 import controller.ViewCartController;
 import entity.cart.Cart;
 import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,6 +19,7 @@ import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
+import views.screen.order.OrderScreenHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +37,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @FXML
     private Label numMediaInCart;
+
+    @FXML
+    private Button orderBtn;
 
     @FXML
     private ImageView aimsImage;
@@ -127,6 +129,19 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 throw new ViewCartException(Arrays.toString(e1.getStackTrace()).replaceAll(", ", "\n"));
             }
         });
+
+        orderBtn.setOnMouseClicked(e -> {
+            try {
+
+                var orderScreen = new OrderScreenHandler(this.stage, Configs.ORDER_PATH);
+                orderScreen.setHomeScreenHandler(this);
+                orderScreen.setBController(new OrderController());
+                orderScreen.show(this);
+            } catch (IOException | SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
         addMediaHome(this.homeItems);
         addMenuItem(0, "Book", splitMenuBtnSearch);
         addMenuItem(1, "DVD", splitMenuBtnSearch);
