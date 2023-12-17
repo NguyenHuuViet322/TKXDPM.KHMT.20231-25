@@ -25,6 +25,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+//SRP: Do CartScreenHandler dam nhan nhieu trach nhiem dong thoi xu ly cac thao tac UI.
+//DIP: CartScreenHandler nen phu thuoc vao cac giao dien thay vi cac lop truc tiep.
+
 public class CartScreenHandler extends BaseScreenHandler {
 
     private static Logger LOGGER = Utils.getLogger(CartScreenHandler.class.getName());
