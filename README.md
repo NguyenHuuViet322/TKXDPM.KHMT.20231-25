@@ -316,3 +316,19 @@ This is a Capstone's source code for Software Design and Construction project
 
 </details>
 
+<details>
+<summary>Nguyễn Hữu Việt</summary>
+
+-   Assigned tasks:
+-   Task: Đánh giá SOLID cho package controller
+-   Pull Request:
+-   Specific implementation details:
+    -   Đánh giá package controller:
+	-   Tuân thủ một số nguyên tắc trong SOLID, (chủ yếu là SRP)
+	-   Có thể cải thiện bằng cách tách nhỏ một số function, do có một số function đang hoạt động quá nhiều chức năng
+	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc
+
+
+</details>
+</details>
+
