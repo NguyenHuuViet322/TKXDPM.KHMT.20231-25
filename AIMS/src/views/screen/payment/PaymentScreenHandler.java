@@ -10,11 +10,13 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import subsystem.vnPay.Config;
 import utils.Configs;
+import utils.Utils;
 import views.screen.BaseScreenHandler;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +39,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 // Control Coupling // Data Coupling 
     private void displayWebView(){
         var paymentController = new PaymentController();
+
         var paymentUrl = paymentController.getUrlPay(invoice.getAmount(), "Thanh toan hoa don AIMS");
         WebView paymentView = new WebView();
         WebEngine webEngine = paymentView.getEngine();

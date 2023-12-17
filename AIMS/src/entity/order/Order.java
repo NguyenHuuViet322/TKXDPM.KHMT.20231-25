@@ -1,9 +1,10 @@
 package entity.order;
 
 import entity.db.AIMSDB;
-import entity.media.Media;
+import entity.payment.PaymentTransaction;
 import entity.shipping.Shipment;
 import utils.Configs;
+import utils.enums.OrderStatus;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,13 +17,30 @@ import java.util.List;
 public class Order {
 
 
+    private String phone;
+    private int id;
     private int shippingFees;
     private List<OrderMedia> lstOrderMedia;
     private Shipment shipment;
     private String name;
     private String province;
     private String instruction;
+    private OrderStatus status;
+    private PaymentTransaction paymentTransaction;
 
+
+
+    public PaymentTransaction getPaymentTransaction() {
+        return paymentTransaction;
+    }
+
+    public OrderStatus getStatus(){
+        return status;
+    }
+
+    public void setStatus(OrderStatus stt){
+        status = stt;
+    }
     public String getInstruction() {
         return instruction;
     }
@@ -73,16 +91,14 @@ public class Order {
         this.phone = phone;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    private String phone;
-    private Integer id;
 
     public Order() {
         this.lstOrderMedia = new ArrayList<OrderMedia>();
@@ -92,13 +108,82 @@ public class Order {
         this.lstOrderMedia = lstOrderMedia;
     }
 
+    public List<Order> getListOrders(){
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            var query = "SELECT o.id, o.name, o.province, o.address, o.phone, o.shippingFees,  o.status, " +
+                    "s.shipType, s.deliveryInstruction, s.deliveryTime, s.shipmentDetail, " +
+                    "p.transactionNo, p.txnRef, p.cardType, p.amount, p.createdAt, p.content " +
+                    "FROM `Order` o " +
+                    "LEFT JOIN Shipment s ON s.orderId = o.id " +
+                    "LEFT JOIN PaymentTransaction p ON o.id = p.orderID ORDER BY p.createdAt DESC";
+            PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            HashMap<Integer, Order> orderMap = new HashMap<>();
+
+            while (resultSet.next()) {
+                int orderId = resultSet.getInt("id");
+                Order order = orderMap.get(orderId);
+
+                if (order == null) {
+                    order = new Order();
+                    order.setId(orderId);
+                    order.setName(resultSet.getString("name"));
+                    order.setProvince(resultSet.getString("province"));
+                    order.setAddress(resultSet.getString("address"));
+                    order.setPhone(resultSet.getString("phone"));
+                    order.setShippingFees(resultSet.getInt("shippingFees"));
+                    order.setStatus(OrderStatus.values()[resultSet.getInt("status")]);
+
+
+                    var shipment = new Shipment();
+                    shipment.setShipType(resultSet.getInt("shipType"));
+                    shipment.setDeliveryInstruction(resultSet.getString("deliveryInstruction"));
+                    shipment.setDeliveryTime(resultSet.getString("deliveryTime"));
+                    shipment.setShipmentDetail(resultSet.getString("shipmentDetail"));
+
+                    order.setShipment(shipment);
+
+                    var paymentTransaction = new PaymentTransaction();
+                    paymentTransaction.setTransactionNo(resultSet.getString(("transactionNo")));
+                    paymentTransaction.setTxnRef(resultSet.getString(("txnRef")));
+                    paymentTransaction.setCardType(resultSet.getString(("cardType")));
+                    paymentTransaction.setAmount(resultSet.getInt(("amount")));
+                    paymentTransaction.setCreatedAt(resultSet.getDate(("createdAt")));
+                    paymentTransaction.setTransactionContent(resultSet.getString(("content")));
+
+
+
+                    order.paymentTransaction = paymentTransaction;
+
+                    orderMap.put(orderId, order);
+                    orders.add(order);
+                }
+
+
+                OrderMedia orderMedia = new OrderMedia();  // Replace with actual logic
+                order.addOrderMedia(orderMedia);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return orders;
+    }
+
     public void createOrderEntity(){
         try {
             Statement stm = AIMSDB.getConnection().createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        String query = "INSERT INTO 'Order' (name, province, address, phone, shipping_fee) " +
+        String query = "INSERT INTO 'Order' (name, province, address, phone, shippingFees) " +
                 "VALUES ( ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, name);
@@ -106,6 +191,7 @@ public class Order {
             preparedStatement.setString(3, address);
             preparedStatement.setString(4, phone);
             preparedStatement.setInt(5, shippingFees);
+
 
 
             int affectedRows = preparedStatement.executeUpdate();
@@ -122,15 +208,32 @@ public class Order {
                     throw new SQLException("Creating order failed, no ID obtained.");
                 }
             }
-            try (PreparedStatement preparedStatement2 = AIMSDB.getConnection().prepareStatement(query)) {
-                var sqlinsertShipment = "INSERT INTO Shipping ( shipType, deliveryInstruction, dateTime, deliverySub, orderId) " +
-                        "VALUES ( ?, ?, ?, ?)";
-                preparedStatement2.setInt(1, shipment.getShipType());
-                preparedStatement2.setString(2, shipment.getDeliveryInstruction());
-                preparedStatement2.setString(3, shipment.getDeliveryTime());
-                preparedStatement2.setString(4, shipment.getShipmentDetail());
-                preparedStatement2.setInt(5, id);
-              preparedStatement2.executeUpdate();
+            shipment.setOrderId(id);
+            shipment.save();
+            lstOrderMedia.forEach(medio -> {
+                medio.save(id);
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateStatus(OrderStatus status, int orderId) {
+        try {
+            String query = "UPDATE `Order` SET status = ? WHERE id = ?";
+            try (PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query)) {
+                if (status != null) {
+                    preparedStatement.setInt(1, status.ordinal());
+                } else {
+                    throw new IllegalArgumentException("Status cannot be null");
+                }
+                preparedStatement.setInt(2, orderId);
+
+                int affectedRows = preparedStatement.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Update order failed, no rows affected.");
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
