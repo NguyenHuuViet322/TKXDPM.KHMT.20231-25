@@ -76,7 +76,6 @@ This is a Capstone's source code for Software Design and Construction project
     - Phương thức **setInvoiceInfo()** thuộc **Control Coupling** do sử dụng thông tin lấy từ **invoice** ảnh hưởng đến luồng.
     - Phương thức **confirmInvoice(MouseEvent event)** thuộc **Control Coupling** do phương thức thay đổi đối tượng **paymentScreen**
     - Phương thức **setMediaInfo()** thuộc **Control Coupling** do phụ thuộc vào phương thức của **orderMedia**.
-<<<<<<< Updated upstream
     - Phương thức **MediaHandler(String screenPath, CartScreenHandler cartScreen)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
     - Phương thức **setCartMedia(CartMedia cartMedia)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
     - Phương thức **InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice)** thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
@@ -149,11 +148,3 @@ This is a Capstone's source code for Software Design and Construction project
     - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
 
 </details>
-=======
-    - Phương thức **MediaHandler(String screenPath, CartScreenHandler cartScreen)**thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
-    - Phương thức **setCartMedia(CartMedia cartMedia)**thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
-    - Phương thức **InvoiceScreenHandler(Stage stage, String screenPath, Invoice invoice)**thuộc **Data Coupling** do sử dụng đủ params được truyền vào.
-    - Phương thức **MediaInvoiceScreenHandler(String screenPath)** và **setOrderMedia(OrderMedia orderMedia)** thuộc **Data Coupling** do sử dụng vừa đủ params được truyền vào.
-    - Một số phương thức không có gì truyền hoặc không thực hiện điều gì thuộc là **không xác định Coupling** .
-</details>
->>>>>>> Stashed changes
