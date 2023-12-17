@@ -12,8 +12,6 @@ import views.screen.FXMLScreenHandler;
 import java.io.IOException;
 import java.sql.SQLException;
 
-//Khong vi pham quy tac SOLID
-
 public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
 
     @FXML

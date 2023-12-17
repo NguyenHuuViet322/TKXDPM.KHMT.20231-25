@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Logger;
-//Khong vi pham nguyen tac SOLID
+
 public class InvoiceScreenHandler extends BaseScreenHandler {
 
     private static Logger LOGGER = Utils.getLogger(InvoiceScreenHandler.class.getName());

@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-// SRP: MediaHandler xu ly nhieu tac vu cung luc: xu ly giao dien, ket noi database ,.. 
 public class MediaHandler extends FXMLScreenHandler {
 
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
