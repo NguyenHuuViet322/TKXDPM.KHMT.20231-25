@@ -330,5 +330,23 @@ This is a Capstone's source code for Software Design and Construction project
 
 
 </details>
+
+<details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+
+-   Assigned tasks:
+-   Task: Đánh giá SOLID cho package Views Home/Payment/Shipping
+-   Pull Request:
+-   Specific implementation details:
+    -   Đánh giá package Home:
+	- Một số phương thức trong HomeScreenHandler có thể được chia nhỏ thành các phương thức nhỏ hơn để giảm độ phức tạp và tăng độ rõ ràng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection và giảm kết nối chặt chẽ giữa các lớp.
+    -   Đánh giá package Payment:
+    	- Có thể cải thiện: Phương thức displayWebView và handleUrlChanged có thể được chia nhỏ thành các phương thức nhỏ hơn để tăng độ rõ ràng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection.
+    -   Đánh giá package Shipping:
+   	- Phương thức submitDeliveryInfo có thể được chia nhỏ để giảm độ phức tạp và tăng tính tái sử dụng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection và giảm kết nối chặt chẽ giữa các lớp.
+</details>
 </details>
 
