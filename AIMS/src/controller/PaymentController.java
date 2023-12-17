@@ -1,15 +1,18 @@
 package controller;
 
-import common.exception.PaymentException;
-import common.exception.TransactionNotDoneException;
-import common.exception.UnrecognizedException;
+import common.exception.*;
 import entity.cart.Cart;
+import entity.order.Order;
+import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
 import subsystem.vnPay.VnPaySubsystemController;
+import utils.Utils;
+import utils.enums.OrderStatus;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -30,25 +33,41 @@ public class PaymentController extends BaseController {
     //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
-
+        PaymentTransaction trans = null;
         try {
 
-            var trans = this.vnPayService.makePaymentTransaction(res);
-            trans.save(orderId);
+             trans = this.vnPayService.makePaymentTransaction(res);
+            if(trans != null) trans.save(orderId);
+            var order = new Order();
+            if(trans.getErrorCode().equals("00")){
+                result.put("RESULT", "PAYMENT SUCCESSFUL!");
+                result.put("MESSAGE", "You have succesffully paid the order!");
+                order.updateStatus(OrderStatus.Paid, orderId);
+            } else{
+                var ex = PaymentExceptionHolder.getInstance().getException(trans.getErrorCode());
+                if(ex != null){
+                    result.put("MESSAGE", ex.getMessage());
+                    result.put("RESULT", "PAYMENT FAILED!");
+                    order.updateStatus(OrderStatus.Rejected, orderId);
+                }else{
+                    result.put("MESSAGE", "Unknown error, contact to AIMS Team to get helping please.");
+                    result.put("RESULT", "PAYMENT FAILED!");
+                    order.updateStatus(OrderStatus.Rejected, orderId);
+                }
+            }
 
-            result.put("RESULT", "PAYMENT SUCCESSFUL!");
-            result.put("MESSAGE", "You have succesffully paid the order!");
-        } catch (PaymentException | UnrecognizedException ex) {
-            result.put("MESSAGE", ex.getMessage());
+
+        } catch ( UnrecognizedException ex) {
+            result.put("MESSAGE", "Fail occur, contact to AIMS Team to get helping please.");
             result.put("RESULT", "PAYMENT FAILED!");
 
         }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+         catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
+
+        
         return result;
     }
 
@@ -64,6 +83,8 @@ public class PaymentController extends BaseController {
     public String getUrlPay(int amount, String content){
 
         String url = null;
+
+
         try {
             url = this.vnPayService.generatePayUrl(amount, content);
         } catch (IOException e) {

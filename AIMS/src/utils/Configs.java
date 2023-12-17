@@ -33,6 +33,9 @@ public class Configs {
     public static final String HOME_MEDIA_PATH = "/views/fxml/media_home.fxml";
     public static final String POPUP_PATH = "/views/fxml/popup.fxml";
     public static final String DELIVERY_METHODS_PATH = "/views/fxml/delivery_methods_form.fxml";
+    public static final String ORDER_PATH = "/views/fxml/order.fxml";
+    public static final String ORDER_MEDIA_PATH = "/views/fxml/media_order.fxml";
+
     public static final int PLACE_RUSH_ORDER = 1;
     public static final int PALCE_ORDER = 2;
     public static String CURRENCY = "VND";
