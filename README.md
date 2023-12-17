@@ -164,12 +164,11 @@ This is a Capstone's source code for Software Design and Construction project
     Vì nó tập trung vào một nhiệm vụ cụ thể và liên quan: tạo đối tượng PaymentTransaction từ dữ liệu đầu vào là một bản đồ (Map<String, String> response). Sau đó, hàm xử lý các trường hợp lỗi khác nhau liên quan đến giao dịch thanh toán. Chức năng của hàm này rõ ràng và đồng nhất, giúp cải thiện khả năng bảo trì và hiểu mã nguồn.
 
 </details>
+
 <details>
 <summary>Nguyễn Hữu Việt</summary>
-<br>
-  
-- Assigned tasks:
-  - Task: Bổ sung Cohesion cho package controller
+<br>  
+ - Task: Bổ sung Cohesion cho package controller
  - Pull Request: 
   - Specific implementation details:
 
@@ -235,6 +234,7 @@ This is a Capstone's source code for Software Design and Construction project
     Hàm này có mục đích kiểm tra sự có sẵn của sản phẩm trong giỏ hàng. Chức năng này liên quan chặt chẽ đến việc kiểm tra sản phẩm trong giỏ hàng.
 
 </details>
+
 </details>
 
 <details>
@@ -295,6 +295,7 @@ This is a Capstone's source code for Software Design and Construction project
     Phương thức này có data cohesion vì nó chỉ trả về một đối tượng **PlaceOrderController** (controller cho việc đặt hàng)
 
 </details>
+
 </details>
 
 <details>
@@ -314,3 +315,4 @@ This is a Capstone's source code for Software Design and Construction project
     -   Kết nối vnPay, gọi được use-case refund của vnPay
 
 </details>
+
