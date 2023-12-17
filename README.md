@@ -234,9 +234,6 @@ This is a Capstone's source code for Software Design and Construction project
     Hàm này có mục đích kiểm tra sự có sẵn của sản phẩm trong giỏ hàng. Chức năng này liên quan chặt chẽ đến việc kiểm tra sản phẩm trong giỏ hàng.
 
 </details>
-
-</details>
-
 <details>
 <summary>Nguyễn Thị Hồng Vân</summary>
 <br>
@@ -295,7 +292,6 @@ This is a Capstone's source code for Software Design and Construction project
     Phương thức này có data cohesion vì nó chỉ trả về một đối tượng **PlaceOrderController** (controller cho việc đặt hàng)
 
 </details>
-
 </details>
 
 <details>
