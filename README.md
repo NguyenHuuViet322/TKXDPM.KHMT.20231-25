@@ -344,8 +344,6 @@ This is a Capstone's source code for Software Design and Construction project
    	- Phương thức submitDeliveryInfo có thể được chia nhỏ để giảm độ phức tạp và tăng tính tái sử dụng.
 	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection và giảm kết nối chặt chẽ giữa các lớp.
 </details>
-</details>
-
 <summary>Ninh Thành Vinh</summary>
 
 -   Assigned tasks:
@@ -356,4 +354,5 @@ This is a Capstone's source code for Software Design and Construction project
 	-   Một số lớp không vi phạm các nguyên tắc SOLID.
 	-   Một số lớp có thể chia nhỏ thành các lớp nhỏ thực hiện chức năng riêng để cải thiện.
 	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc.
+</details>
 </details>
