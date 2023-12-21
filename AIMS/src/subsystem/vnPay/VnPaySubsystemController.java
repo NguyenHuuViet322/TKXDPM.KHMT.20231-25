@@ -3,10 +3,13 @@ package subsystem.vnPay;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import common.exception.*;
+import entity.order.entities.RefundTransaction;
 import entity.payment.PaymentTransaction;
-import entity.payment.RefundTransaction;
 import subsystem.VnPayInterface;
 import com.google.gson.JsonObject;
+import entity.order.entities.RefundResponse;
+import common.exception.vnPayException.PaymentExceptionHolder;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -126,30 +129,26 @@ public class VnPaySubsystemController implements VnPayInterface {
         Date date = dateFormat.parse(createdAt);
         PaymentTransaction trans = new
                 PaymentTransaction(errorCode, transactionId, transactionContent, amount, date, cardType, txnRef);
-
             return trans;
-
-
-
     }
 
-    public RefundTransaction refund(Map<String, String> req) throws  IOException, PaymentException {
+    public RefundResponse refund(RefundTransaction refundTransaction) throws  IOException, PaymentException {
 
         //Command: refund
         String vnp_RequestId = Config.getRandomNumber(8);
         String vnp_Version = "2.1.0";
         String vnp_Command = "refund";
         String vnp_TmnCode = Config.vnp_TmnCode;
-        String vnp_TransactionType = req.get("trantype"); // 02 or 03
-        String vnp_TxnRef = req.get("order_id");
+        String vnp_TransactionType = refundTransaction.getTrantype(); // 02 or 03
+        String vnp_TxnRef = refundTransaction.getOrder_id();
 
-        long amount = Integer.parseInt(req.get("amount"))*100;
+        long amount = Long.parseLong(refundTransaction.getAmount())*100;
         String vnp_Amount = String.valueOf(amount);
         String vnp_OrderInfo = "Hoan tien GD OrderId:" + vnp_TxnRef;
-//        String vnp_TransactionNo = "";
-        String vnp_TransactionNo = req.get("transactionNo");
-        String vnp_TransactionDate = req.get("trans_date");
-        String vnp_CreateBy = req.get("user");
+
+        String vnp_TransactionNo = refundTransaction.getTransactionNo();
+        String vnp_TransactionDate = refundTransaction.getTrans_date();
+        String vnp_CreateBy = refundTransaction.getUser();
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -210,11 +209,11 @@ public class VnPaySubsystemController implements VnPayInterface {
 
     }
 
-    private RefundTransaction handleRefundResponse(String response) throws PaymentException {
+    private RefundResponse handleRefundResponse(String response) throws PaymentException {
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> resultMap = new Gson().fromJson(response, type);
 
-        var trans = new RefundTransaction();
+        var trans = new RefundResponse();
         trans.setErrorCode(resultMap.get("vnp_TransactionStatus"));
         trans.setAmount((int) (Long.parseLong(resultMap.get("vnp_Amount")) / 100));
         trans.setTransactionContent(resultMap.get("vnp_OrderInfo"));

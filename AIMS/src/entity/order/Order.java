@@ -306,4 +306,6 @@ public class Order {
         return (int) (amount + (Configs.PERCENT_VAT / 100) * amount);
     }
 
+    public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
+    }
 }
