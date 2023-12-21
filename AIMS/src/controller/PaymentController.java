@@ -28,12 +28,6 @@ public class PaymentController extends BaseController {
      */
     private VnPayInterface vnPayService;
 
-    public PaymentController(){
-        vnPayService = new VnPaySubsystemController();
-    }
-
-
-
     //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
@@ -81,6 +75,8 @@ public class PaymentController extends BaseController {
      * @param content
      * @return
      */
+
+    //Functional Cohesion
     //Data Coupling
     public String getUrlPay(int amount, String content){
 
@@ -94,6 +90,8 @@ public class PaymentController extends BaseController {
         }
         return url;
     }
+
+    //Functional Cohesion
     //Control Coupling
     public void emptyCart() {
         Cart.getCart().emptyCart();

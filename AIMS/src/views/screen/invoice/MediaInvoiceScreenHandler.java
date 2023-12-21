@@ -12,6 +12,8 @@ import views.screen.FXMLScreenHandler;
 import java.io.IOException;
 import java.sql.SQLException;
 
+//Khong vi pham quy tac SOLID
+
 public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
 
     @FXML
@@ -41,11 +43,13 @@ public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
     private OrderMedia orderMedia;
 
     //Data Coupling
+    //Functional Cohesion
     public MediaInvoiceScreenHandler(String screenPath) throws IOException {
         super(screenPath);
     }
 
     //Data Coupling
+    //Functional Cohesion
     /**
      * @param orderMedia
      * @throws SQLException
@@ -56,6 +60,7 @@ public class MediaInvoiceScreenHandler extends FXMLScreenHandler {
     }
 
     //Control Coupling
+    //Functional Cohesion
     /**
      * @throws SQLException
      */
