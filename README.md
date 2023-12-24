@@ -357,3 +357,20 @@ This is a Capstone's source code for Software Design and Construction project
 	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc.
 </details>
 </details>
+  
+  <details>
+  <summary>W16: 18/12/2023~25/12/2023 </summary>
+<br>
+<details>
+<summary>Nguyễn Hữu Việt</summary>
+
+-   Assigned tasks:
+-   Task: Thêm biểu đồ Use Case
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ Use Case
+
+
+</details>
+</details>
+
