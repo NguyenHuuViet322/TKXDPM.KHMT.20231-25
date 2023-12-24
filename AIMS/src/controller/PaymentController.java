@@ -6,13 +6,11 @@ import entity.order.Order;
 import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
 import subsystem.vnPay.VnPaySubsystemController;
-import utils.Utils;
+import common.exception.vnPayException.PaymentExceptionHolder;
 import utils.enums.OrderStatus;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 

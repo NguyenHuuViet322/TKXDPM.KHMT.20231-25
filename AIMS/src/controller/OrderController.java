@@ -1,26 +1,22 @@
 package controller;
 
 import common.exception.PaymentException;
-import common.exception.PaymentExceptionHolder;
-import common.exception.ProcessingException;
-import entity.media.Media;
+import entity.payment.TransactionResult;
+import common.exception.vnPayException.ProcessingException;
 import entity.order.Order;
-import org.mockito.internal.matchers.Or;
 import subsystem.VnPayInterface;
+import entity.order.entities.RefundTransaction;
 import subsystem.vnPay.VnPaySubsystemController;
 import utils.Utils;
 import utils.enums.OrderStatus;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OrderController extends BaseController {
 
     private Order order;
+
     private VnPayInterface vnPayService;
     public OrderController(){
         order = new Order();
@@ -41,27 +37,30 @@ public class OrderController extends BaseController {
        return  order.getListOrders();
    }
 
-   public Map<String, String> cancelOrder(Order orderCancel) {
-       // handle cancel order
+   private boolean validateOrderCancel(Order order) {
+       if(order.getStatus().equals(OrderStatus.Rejected)){
+           return false;
+       }
+       return true;
+   }
 
-
-       // cal api refund
+   public TransactionResult cancelOrder(Order orderCancel) {
+       var result = new TransactionResult();
+       if(!validateOrderCancel(orderCancel)){
+           result.setResult("FAILED");
+           result.setMessage("Có lỗi xảy ra, vui lòng liên hệ AIMS TEAM để được hỗ trợ!");
+           return  result;
+       }
        var trans = orderCancel.getPaymentTransaction();
-        var requestParams = new HashMap<String, String>();
+        var requestParams = new RefundTransaction("02", String.valueOf(trans.getAmount()), trans.getTxnRef(), trans.getTransactionNo(), Utils.formatDateTime(trans.getCreatedAt(), "yyyyMMddHHmmss"), orderCancel.getName());
 
-        requestParams.put("trantype", "02");
-        requestParams.put("amount", String.valueOf(trans.getAmount()));
-        requestParams.put("order_id", trans.getTxnRef());
-        requestParams.put("transactionNo", trans.getTransactionNo());
-//       requestParams.put("trans_date", orderCancel.getPayDate());
-       requestParams.put("trans_date", Utils.formatDateTime(trans.getCreatedAt(), "yyyyMMddHHmmss"));
-       requestParams.put("user", orderCancel.getName());
-    var result = new HashMap<String, String>();
+
        try {
 
            var refund =  vnPayService.refund(requestParams);
-          result.put("RESULT", "REFUND SUCESS");
-          result.put("MESSAGE", "REFUND SUCCESS, PLEASE CHECK YOUR BANK");
+           result.setResult("SUCCESS");
+           result.setMessage("REFUND SUCCESS, PLEASE CHECK YOUR BANK");
+
            orderCancel.setStatus(OrderStatus.Rejected);
            orderCancel.updateStatus(OrderStatus.Rejected, orderCancel.getId());
            return result;
@@ -69,15 +68,17 @@ public class OrderController extends BaseController {
 
        }
        catch (ProcessingException e){
-           result.put("RESULT", "REFUND PROCESSING");
-           result.put("MESSAGE", "REFUND PROCESSING BY VNPAYY, PLEASE CHECK YOUR BANK AFTER 3 DAYS");
+           result.setResult("REFUND PROCESSING");
+           result.setMessage("REFUND PROCESSING, BY VNPAYY, PLEASE CHECK YOUR BANK AFTER 3 DAYS");
+
+
            orderCancel.setStatus(OrderStatus.Rejected);
            orderCancel.updateStatus(OrderStatus.Rejected, orderCancel.getId());
 
        }
        catch (PaymentException e){
-           result.put("RESULT", "REFUND FAILED");
-           result.put("MESSAGE",e.getMessage());
+           result.setResult("REFUND FAILED");
+           result.setMessage(e.getMessage());
        }
        catch (IOException e) {
 

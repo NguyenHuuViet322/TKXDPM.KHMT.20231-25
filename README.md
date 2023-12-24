@@ -234,9 +234,6 @@ This is a Capstone's source code for Software Design and Construction project
     Hàm này có mục đích kiểm tra sự có sẵn của sản phẩm trong giỏ hàng. Chức năng này liên quan chặt chẽ đến việc kiểm tra sản phẩm trong giỏ hàng.
 
 </details>
-
-</details>
-
 <details>
 <summary>Nguyễn Thị Hồng Vân</summary>
 <br>
@@ -295,7 +292,6 @@ This is a Capstone's source code for Software Design and Construction project
     Phương thức này có data cohesion vì nó chỉ trả về một đối tượng **PlaceOrderController** (controller cho việc đặt hàng)
 
 </details>
-
 </details>
 
 <details>
@@ -330,9 +326,39 @@ This is a Capstone's source code for Software Design and Construction project
 
 
 </details>
-</details>
 
 <details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+
+-   Assigned tasks:
+-   Task: Đánh giá SOLID cho package Views Home/Payment/Shipping
+-   Pull Request:
+-   Specific implementation details:
+    -   Đánh giá package Home:
+	- Một số phương thức trong HomeScreenHandler có thể được chia nhỏ thành các phương thức nhỏ hơn để giảm độ phức tạp và tăng độ rõ ràng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection và giảm kết nối chặt chẽ giữa các lớp.
+    -   Đánh giá package Payment:
+    	- Có thể cải thiện: Phương thức displayWebView và handleUrlChanged có thể được chia nhỏ thành các phương thức nhỏ hơn để tăng độ rõ ràng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection.
+    -   Đánh giá package Shipping:
+   	- Phương thức submitDeliveryInfo có thể được chia nhỏ để giảm độ phức tạp và tăng tính tái sử dụng.
+	- Có thể giảm sự phụ thuộc bằng cách áp dụng Dependency Injection và giảm kết nối chặt chẽ giữa các lớp.
+</details>
+<details>
+<summary>Ninh Thành Vinh</summary>
+
+-   Assigned tasks:
+-   Task: Đánh giá SOLID cho views.invoice và views.cart
+-   Pull Request:
+-   Specific implementation details:
+    Đánh giá package controller:
+	-   Một số lớp không vi phạm các nguyên tắc SOLID.
+	-   Một số lớp có thể chia nhỏ thành các lớp nhỏ thực hiện chức năng riêng để cải thiện.
+	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc.
+</details>
+</details>
+  
+  <details>
   <summary>W16: 18/12/2023~25/12/2023 </summary>
 <br>
 <details>
@@ -347,5 +373,4 @@ This is a Capstone's source code for Software Design and Construction project
 
 </details>
 </details>
-
 

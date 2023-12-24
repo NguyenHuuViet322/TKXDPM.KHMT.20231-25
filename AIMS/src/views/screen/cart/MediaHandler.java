@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+// SRP: MediaHandler xu ly nhieu tac vu cung luc: xu ly giao dien, ket noi database ,.. 
 public class MediaHandler extends FXMLScreenHandler {
 
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
@@ -60,6 +61,7 @@ public class MediaHandler extends FXMLScreenHandler {
     private CartScreenHandler cartScreen;
 
     //Data Coupling
+    //Functional Cohesion
     public MediaHandler(String screenPath, CartScreenHandler cartScreen) throws IOException {
         super(screenPath);
         this.cartScreen = cartScreen;
@@ -67,6 +69,7 @@ public class MediaHandler extends FXMLScreenHandler {
     }
 
     //Data coupling
+    //Functional Cohesion
     /**
      * @param cartMedia
      */
@@ -76,6 +79,7 @@ public class MediaHandler extends FXMLScreenHandler {
     }
 
     //Control coupling
+    //Functional Cohesion
     private void setMediaInfo() {
         title.setText(cartMedia.getMedia().getTitle());
         price.setText(Utils.getCurrencyFormat(cartMedia.getPrice()));
@@ -103,6 +107,7 @@ public class MediaHandler extends FXMLScreenHandler {
     }
 
     //Control Coupling
+    //Procedural Cohesion
     private void initializeSpinner() {
         SpinnerValueFactory<Integer> valueFactory = //
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, cartMedia.getQuantity());

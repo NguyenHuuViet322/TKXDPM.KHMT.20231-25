@@ -73,7 +73,7 @@ public class OrderScreenHandler extends BaseScreenHandler {
     public void handleRejectOrder(Order order) throws IOException {
         var response = getBController().cancelOrder(order);
         BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, Configs.RESULT_SCREEN_PATH,
-                response.get("RESULT"), response.get("MESSAGE"));
+                response.getResult(), response.getMessage());
 
         resultScreen.setPreviousScreen(this);
         resultScreen.setHomeScreenHandler(homeScreenHandler);
