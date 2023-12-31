@@ -13,8 +13,11 @@ public class PaymentTransaction {
     private Integer orderID;
     private Date createdAt;
 
+    private String tmnCode;
+    private String txnRef;
+
     public PaymentTransaction(String errorCode, String transactionId, String transactionContent,
-                              int amount, Date createdAt) {
+                              int amount, Date createdAt, String tmnCode, String txnRef) {
         super();
         this.errorCode = errorCode;
 
@@ -23,9 +26,25 @@ public class PaymentTransaction {
         this.transactionContent = transactionContent;
         this.amount = amount;
         this.createdAt = createdAt;
+        this.tmnCode = tmnCode;
+        this.txnRef = txnRef;
     }
 
+    public String getTransactionId() {
+        return transactionId;
+    }
 
+    public Date getCreatedAt(){
+        return createdAt;
+    }
+
+    public String GetTmnCode() {
+        return tmnCode;
+    }
+
+    public String GetTxnRef(){
+        return txnRef;
+    }
     /**
      * @return String
      */

@@ -4,6 +4,7 @@ import common.exception.PaymentException;
 import common.exception.TransactionNotDoneException;
 import common.exception.UnrecognizedException;
 import entity.cart.Cart;
+import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
 import subsystem.VnPaySubsystem;
 
@@ -103,6 +104,11 @@ public class PaymentController extends BaseController {
         vnPayService = new VnPaySubsystem();
         var url = vnPayService.generatePayUrl(amount, content);
         return url;
+    }
+
+    public String getUrlQuery(PaymentTransaction transaction) {
+        vnPayService = new VnPaySubsystem();
+        String url = vnPayService.
     }
     //Control Coupling
     public void emptyCart() {

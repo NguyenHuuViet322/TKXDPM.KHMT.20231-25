@@ -41,6 +41,14 @@ public class VnPaySubsystem implements VnPayInterface {
         }
     }
 
+    public String generateQueryUrl(PaymentTransaction transaction) {
+        try {
+            return ctrl.generateTransQueryUrl(transaction);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      *
      * Data coupling

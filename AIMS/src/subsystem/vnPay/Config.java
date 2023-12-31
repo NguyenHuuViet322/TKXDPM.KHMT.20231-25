@@ -18,6 +18,8 @@ public class Config {
 
     private static final Pattern pattern = Pattern.compile("\\{\"IP\":\"(?<ip>.*)\"\\}");
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+
+    public  static String vnp_QueryUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_ReturnUrl = "http://127.0.0.1:50387";
     public static String vnp_TmnCode = "TXOOZNX4";
     public static String secretKey = "HUQHTRVXVRGJJWHMBFCAUBAXOSAJBIND";
