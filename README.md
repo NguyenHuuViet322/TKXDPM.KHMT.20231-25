@@ -348,7 +348,8 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 </details>
 
-<summary>W17: 25/12/2023~01/01/2024 </summary>
+<details>
+  <summary>W17: 25/12/2023~01/01/2024 </summary>
 <details>
 <summary>Nguyễn Hữu Việt</summary>
 -   Assigned tasks:
