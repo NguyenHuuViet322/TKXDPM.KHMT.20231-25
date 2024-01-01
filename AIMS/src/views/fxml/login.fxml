@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="340.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.screen.SplashScreenHandler">
+<AnchorPane prefHeight="340.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="340.0" prefWidth="633.0">
          <children>
             <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="392.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../assets/images/Logo.png" />
+                  <Image url="@../../../assets/images/Logo.png"/>
                </image>
             </ImageView>
             <Label layoutX="430.0" layoutY="182.0" prefHeight="96.0" prefWidth="166.0" text="LOGIN" textAlignment="CENTER" textFill="#5091e6">
@@ -41,7 +41,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="signup" layoutX="48.0" layoutY="252.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="266.0" style="-fx-font-weight: bold; -fx-background-color: #5091e6;" text="Sign Up" textFill="WHITE">
+            <Button fx:id="signup" layoutX="48.0" layoutY="252.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="266.0" style="-fx-font-weight: bold; -fx-background-color: #5091e6;" text="Sign In" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -49,4 +49,4 @@
          </children>
       </AnchorPane>
    </children>
-</StackPane>
+</AnchorPane>

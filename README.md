@@ -367,3 +367,21 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 </details>
 
+<details>
+  <summary>W18: 01/01/2024~08/01/2024 </summary>
+<details>
+<summary>Nguyễn Hữu Việt</summary>
+	
+-   Assigned tasks:
+    -   Task: Cập nhật architecture design cho UC **Đăng nhập** và **Đăng kí**
+    -   Task: Lập trình mã nguồn cho UC **Đăng nhập** và **Đăng kí**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Đăng nhập** và **đăng kí**
+    -	Thêm biểu đồ **trình tự** cho UC **Đăng nhập** và **đăng kí**
+    -   **Lập trình** cho Use case **Đăng nhập** và **đăng kí**
+
+</details>
+</details>
+
+
