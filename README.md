@@ -20,8 +20,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Nguyễn Hữu Việt</summary>
-<br>
-
 -   Assigned tasks:
     -   Task 1: Bổ sung Coupling cho package controller
 -   Implementation details:
@@ -38,8 +36,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Nguyễn Thế Vũ</summary>
-<br>
-  
 - Assigned tasks:
 - Task: Bổ sung Coupling cho package subSystem
  - Pull Request: 
@@ -63,8 +59,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Ninh Thành Vinh</summary>
-<br>
-
 -   Assigned tasks:
     -   Task: Bổ sung Coupling cho view.screen.cart và view.screen.invoice
 -   Pull Request:
@@ -73,8 +67,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Nguyễn Thị Hồng Vân</summary>
-<br>
-
 -   Assigned tasks:
     -   Task 1: Bổ sung Coupling cho package Views.Screen.Home/Payment/Shipping
 -   Implementation details:
@@ -99,8 +91,6 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
   <details>
 <summary>Chu Văn Việt</summary>
-<br>
-
 -   Assigned tasks:
 -   Task: Bổ sung Coupling cho views.screen.Popup, views.screen.BaseScreenHandler, views.screen.FXMLScreenHandler, views.screen.SplashScreenHandler
 -   Pull Request:
@@ -146,8 +136,6 @@ This is a Capstone's source code for Software Design and Construction project
 <br>
 <details>
 <summary>Nguyễn Thế Vũ</summary>
-<br>
-  
 - Assigned tasks:
 - Task: Bổ sung Cohesion cho package subSystem, refactor lại package subSystem
  - Pull Request: 
@@ -167,7 +155,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Nguyễn Hữu Việt</summary>
-<br>  
  - Task: Bổ sung Cohesion cho package controller
  - Pull Request: 
   - Specific implementation details:
@@ -236,8 +223,6 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 <details>
 <summary>Nguyễn Thị Hồng Vân</summary>
-<br>
-  
 - Assigned tasks:
 - Task: Bổ sung Cohesion cho package package Views.Screen.Home/Payment/Shipping
  - Pull Request: 
@@ -299,7 +284,6 @@ This is a Capstone's source code for Software Design and Construction project
 <br>
 <details>
 <summary>Nguyễn Thế Vũ</summary>
-
 -   Assigned tasks:
 -   Task: Đánh giá SOLID cho package subSystem, thiết kế cancelOrder
 -   Pull Request:
@@ -329,7 +313,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
 <summary>Nguyễn Thị Hồng Vân</summary>
-
 -   Assigned tasks:
 -   Task: Đánh giá SOLID cho package Views Home/Payment/Shipping
 -   Pull Request:
@@ -346,7 +329,6 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 <details>
 <summary>Ninh Thành Vinh</summary>
-
 -   Assigned tasks:
 -   Task: Đánh giá SOLID cho views.invoice và views.cart
 -   Pull Request:
@@ -357,20 +339,15 @@ This is a Capstone's source code for Software Design and Construction project
 	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc.
 </details>
 </details>
-  
   <details>
   <summary>W16: 18/12/2023~25/12/2023 </summary>
-<br>
 <details>
 <summary>Nguyễn Hữu Việt</summary>
-
 -   Assigned tasks:
 -   Task: Thêm biểu đồ Use Case
 -   Pull Request:
 -   Specific implementation details:
     -   Thêm biểu đồ Use Case
-
-
 </details>
 </details>
 
