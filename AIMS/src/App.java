@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import utils.Configs;
 import views.screen.home.HomeScreenHandler;
+import views.screen.login.LoginScreenHandler;
 
 import java.io.IOException;
 
@@ -59,10 +60,9 @@ public class App extends Application {
             // After fade out, load actual content
             fadeOut.setOnFinished((e) -> {
                 try {
-                    HomeScreenHandler homeHandler = new HomeScreenHandler(primaryStage, Configs.HOME_PATH);
-                    homeHandler.setScreenTitle("Home Screen");
-                    homeHandler.setImage();
-                    homeHandler.show();
+                    LoginScreenHandler loginHandler = new LoginScreenHandler(primaryStage, Configs.LOGIN_PATH);
+                    loginHandler.setScreenTitle("Login");
+                    loginHandler.show();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
