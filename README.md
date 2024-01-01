@@ -297,7 +297,7 @@ This is a Capstone's source code for Software Design and Construction project
 <summary>Nguyễn Hữu Việt</summary>
 
 -   Assigned tasks:
--   Task: Đánh giá SOLID cho package controller
+    -   Task: Đánh giá SOLID cho package controller
 -   Pull Request:
 -   Specific implementation details:
     -   Đánh giá package controller:
@@ -337,28 +337,33 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 </details>
   <details>
-  <summary>W16: 18/12/2023~25/12/2023 </summary>
+    <summary>W16: 18/12/2023~25/12/2023 </summary>
 <details>
 <summary>Nguyễn Hữu Việt</summary>
+
 -   Assigned tasks:
--   Task: Thêm biểu đồ Use Case
+    -   Task: Thêm biểu đồ Use Case tổng quan
 -   Pull Request:
 -   Specific implementation details:
-    -   Thêm biểu đồ Use Case
+    -   Thêm biểu đồ Use Case tổng quan
+
 </details>
-</details>
+
+  </details>
 
 <details>
   <summary>W17: 25/12/2023~01/01/2024 </summary>
 <details>
 <summary>Nguyễn Hữu Việt</summary>
+	
 -   Assigned tasks:
--   Task: Cập nhật requirement analysis cho UC **Đăng nhập** và **Đăng kí**
+    -   Task: Cập nhật requirement analysis cho UC **Đăng nhập** và **Đăng kí**
 -   Pull Request:
 -   Specific implementation details:
     -   Sửa đổi biểu đồ **Use Case tổng quan**
     -	Thêm biểu đồ hoạt động cho UC **Đăng nhập** và **đăng kí**
     -   Thêm đặc tả Use case cho UC **Đăng nhập** và **đăng kí**
+
 </details>
 </details>
 
