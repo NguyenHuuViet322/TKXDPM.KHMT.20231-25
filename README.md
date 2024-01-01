@@ -16,7 +16,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
   <summary>W13: 27/11/2023~03/12/2023 </summary>
-<br>
 
 <details>
 <summary>Nguyễn Hữu Việt</summary>
@@ -133,7 +132,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
   <summary>W14: 04/12/2023~10/12/2023 </summary>
-<br>
 <details>
 <summary>Nguyễn Thế Vũ</summary>
 - Assigned tasks:
@@ -281,7 +279,6 @@ This is a Capstone's source code for Software Design and Construction project
 
 <details>
   <summary>W15: 11/12/2023~17/12/2023 </summary>
-<br>
 <details>
 <summary>Nguyễn Thế Vũ</summary>
 -   Assigned tasks:
@@ -348,6 +345,19 @@ This is a Capstone's source code for Software Design and Construction project
 -   Pull Request:
 -   Specific implementation details:
     -   Thêm biểu đồ Use Case
+</details>
+</details>
+
+<summary>W17: 25/12/2023~01/01/2024 </summary>
+<details>
+<summary>Nguyễn Hữu Việt</summary>
+-   Assigned tasks:
+-   Task: Cập nhật requirement analysis cho UC **Đăng nhập** và **Đăng kí**
+-   Pull Request:
+-   Specific implementation details:
+    -   Sửa đổi biểu đồ **Use Case tổng quan**
+    -	Thêm biểu đồ hoạt động cho UC **Đăng nhập** và **đăng kí**
+    -   Thêm đặc tả Use case cho UC **Đăng nhập** và **đăng kí**
 </details>
 </details>
 
