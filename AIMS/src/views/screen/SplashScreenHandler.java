@@ -19,6 +19,7 @@ public class SplashScreenHandler implements Initializable {
      * @param location
      * @param resources
      */
+    //Data Coupling, Control Coupling
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("assets/images/Logo.png");

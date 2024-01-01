@@ -17,13 +17,13 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     private BaseScreenHandler prev;
     private BaseController bController;
 
-    //Data Coupling
+    //không xác định coupling
     private BaseScreenHandler(String screenPath) throws IOException {
         super(screenPath);
         this.stage = new Stage();
     }
 
-
+    //không xác định coupling
     public BaseScreenHandler(Stage stage, String screenPath) throws IOException {
         super(screenPath);
         this.stage = stage;
@@ -32,6 +32,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @return BaseScreenHandler
      */
+    //không xác định coupling
     public BaseScreenHandler getPreviousScreen() {
         return this.prev;
     }
@@ -39,10 +40,12 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @param prev
      */
+    //Data Coupling
     public void setPreviousScreen(BaseScreenHandler prev) {
         this.prev = prev;
     }
 
+    //Control Coupling
     public void show() {
         if (this.scene == null) {
             this.scene = new Scene(this.content);
@@ -55,6 +58,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @param string
      */
+    //Data Coupling
     public void setScreenTitle(String string) {
         this.stage.setTitle(string);
     }
@@ -62,6 +66,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @return BaseController
      */
+    //không xác định coupling
     public BaseController getBController() {
         return this.bController;
     }
@@ -69,6 +74,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @param bController
      */
+    //Data Coupling
     public void setBController(BaseController bController) {
         this.bController = bController;
     }
@@ -76,6 +82,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @param messages
      */
+    //Data Coupling
     public void forward(Hashtable messages) {
         this.messages = messages;
     }
@@ -84,6 +91,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     /**
      * @param HomeScreenHandler
      */
+    //Data Coupling
     public void setHomeScreenHandler(HomeScreenHandler HomeScreenHandler) {
         this.homeScreenHandler = HomeScreenHandler;
     }
