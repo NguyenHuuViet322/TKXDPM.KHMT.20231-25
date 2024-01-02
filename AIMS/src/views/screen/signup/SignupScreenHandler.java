@@ -88,12 +88,12 @@ public class SignupScreenHandler extends BaseScreenHandler  implements Initializ
     }
 
     public AccountController getBController() {
-        return (AccountController) super.getBController();
+        return accountController;
     }
 
     public void requestSignup(String username, String password, String confirmPassword, String name, String birthDate, String phoneNumber) throws SQLException, IOException {
         try {
-            getBController().signup(username, password, confirmPassword, name, birthDate, phoneNumber);
+            getBController().signup(name, username, password, confirmPassword,  birthDate, phoneNumber);
             PopupScreen.success("Tạo tài khoản thành công");
             HomeScreenHandler homeHandler = new HomeScreenHandler(stage, Configs.HOME_PATH);
             homeHandler.setScreenTitle("Home Screen");
