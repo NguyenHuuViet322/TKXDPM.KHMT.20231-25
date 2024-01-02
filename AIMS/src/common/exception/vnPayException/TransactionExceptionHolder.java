@@ -5,12 +5,12 @@ import common.exception.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentExceptionHolder {
-    private static final PaymentExceptionHolder instance = new PaymentExceptionHolder();
+public class TransactionExceptionHolder {
+    private static final TransactionExceptionHolder instance = new TransactionExceptionHolder();
 
     private Map<String, PaymentException> exceptions = new HashMap<>();
 
-    private PaymentExceptionHolder() {
+    private TransactionExceptionHolder() {
         // Khởi tạo các exception và đưa vào Map
         exceptions.put("01", new TransactionNotDoneException());
         exceptions.put("02", new TransactionFailedException());
@@ -21,7 +21,7 @@ public class PaymentExceptionHolder {
         exceptions.put("07", new AnonymousTransactionException());
     }
 
-    public static PaymentExceptionHolder getInstance() {
+    public static TransactionExceptionHolder getInstance() {
         return instance;
     }
 
