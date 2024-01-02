@@ -62,7 +62,6 @@ public class LoginScreenHandler extends BaseScreenHandler  implements Initializa
                 signupHandler.setScreenTitle("Sign Up");
                 signupHandler.show();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         });
@@ -70,17 +69,13 @@ public class LoginScreenHandler extends BaseScreenHandler  implements Initializa
     }
 
     public AccountController getBController() {
-        return (AccountController) super.getBController();
+        return accountController;
     }
 
     public void requestLogin(String username, String password) throws SQLException, IOException {
         try {
             getBController().login(username, password);
-            HomeScreenHandler homeHandler = new HomeScreenHandler(stage, Configs.HOME_PATH);
-            homeHandler.setScreenTitle("Home Screen");
-            homeHandler.setImage();
-            homeHandler.show();
-            System.out.println("done");
+            homeScreenHandler.show();
         } catch(LoginFailedException e) {
             PopupScreen.error(e.getMessage());
         }

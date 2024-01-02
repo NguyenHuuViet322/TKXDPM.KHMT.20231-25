@@ -36,6 +36,7 @@ public class Account {
 
     public Account(int id, String name, String username, String password,String birthDate, String phone, int role) {
         this.id = id;
+        this.name = name;
         this.username = username;
         this.password = password;
         this.birthDate = birthDate;
@@ -99,6 +100,7 @@ public class Account {
         if (validateLoginInformation()) {
             Account tmp = getAccountByUsername(username);
             if (tmp.password.compareTo(this.password) == 0) {
+                System.out.println(tmp.getName());
                 return tmp;
             }
             else {
@@ -169,7 +171,6 @@ public class Account {
                         + phone + "','"
                         + "1'"
                     +");";
-                    System.err.println(sql);
             Statement stm = AIMSDB.getConnection().createStatement();
             stm.executeUpdate(sql);
 

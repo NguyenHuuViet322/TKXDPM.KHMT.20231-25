@@ -1,6 +1,7 @@
 package views.screen.home;
 
 import common.exception.ViewCartException;
+import controller.AccountController;
 import controller.HomeController;
 import controller.OrderController;
 import controller.ViewCartController;
@@ -19,6 +20,7 @@ import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
+import views.screen.login.LoginScreenHandler;
 import views.screen.order.OrderScreenHandler;
 
 import java.io.File;
@@ -37,6 +39,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @FXML
     private Label numMediaInCart;
+
+    @FXML
+    private Button login;
 
     @FXML
     private Button orderBtn;
@@ -87,6 +92,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @Override
 //Sequential Cohesion
     public void show() {
+        try {
+            if (accountController.getLoggedInAccount() != null) {
+                login.setText("Chào mừng, " + accountController.getLoggedInAccount().getName());
+            }
+        } catch(Exception e) {
+            System.out.println("null");
+        }
         numMediaInCart.setText(String.valueOf(Cart.getCart().getListMedia().size()) + " media");
         super.show();
     }
@@ -113,6 +125,19 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             e.printStackTrace();
         }
 
+        login.setOnMouseClicked(e -> {
+            LoginScreenHandler loginHandler;
+            try {
+                loginHandler = new LoginScreenHandler(stage, Configs.LOGIN_PATH);
+                loginHandler.setHomeScreenHandler(this);
+                loginHandler.setScreenTitle("Login");
+                accountController = loginHandler.getBController();
+                loginHandler.show();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+
         aimsImage.setOnMouseClicked(e -> {
             addMediaHome(this.homeItems);
         });
@@ -120,7 +145,6 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         cartImage.setOnMouseClicked(e -> {
 
             try {
-
                 var cartScreen = new CartScreenHandler(this.stage, Configs.CART_SCREEN_PATH);
                 cartScreen.setHomeScreenHandler(this);
                 cartScreen.setBController(new ViewCartController());
@@ -132,7 +156,6 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
         orderBtn.setOnMouseClicked(e -> {
             try {
-
                 var orderScreen = new OrderScreenHandler(this.stage, Configs.ORDER_PATH);
                 orderScreen.setHomeScreenHandler(this);
                 orderScreen.setBController(new OrderController());
