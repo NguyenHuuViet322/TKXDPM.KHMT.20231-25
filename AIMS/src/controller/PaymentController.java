@@ -28,9 +28,6 @@ public class PaymentController extends BaseController {
      */
     private VnPayInterface vnPayService;
 
-    public PaymentController() {
-        this.vnPayService = new VnPaySubsystemController();
-    }
     //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
