@@ -19,8 +19,9 @@ public interface VnPayInterface {
     String generatePayUrl(int amount, String contents)
             throws  IOException;
 
-
+    public String generateTransQueryUrl(PaymentTransaction transaction) throws IOException;
     RefundResponse refund(RefundTransaction refundTransaction) throws PaymentException, IOException;
     PaymentTransaction
     makePaymentTransaction(Map<String, String> response) throws ParseException;
+
 }

@@ -13,7 +13,6 @@ public class PaymentTransaction {
     private Integer orderID;
     private Date createdAt;
     private String txnRef;
-
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }

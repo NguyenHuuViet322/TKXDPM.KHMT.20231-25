@@ -13,6 +13,7 @@ import common.exception.vnPayException.PaymentExceptionHolder;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -237,4 +238,88 @@ public class VnPaySubsystemController implements VnPayInterface {
         return trans;
     }
 
+    public String generateTransQueryUrl(PaymentTransaction transaction) throws IOException {
+        HashMap<String, String> params = new HashMap<>();
+
+        String vnp_RequestId = Config.getRandomNumber(8);
+        params.put("vnp_RequestId", vnp_RequestId);
+        String vnp_Version = "2.1.0";
+        params.put("vnp_Version", vnp_Version);
+        String vnp_Command = "querydr";
+        params.put("vnp_Command", vnp_Command);
+
+        String vnp_TmnCode = Config.vnp_TmnCode;
+        params.put("vnp_TmnCode", vnp_TmnCode);
+        String vnp_TxnRef = transaction.getTxnRef();
+        params.put("vnp_TxnRef", vnp_TxnRef);
+
+        String vnp_OrderInfo = transaction.getTransactionContent();
+        params.put("vnp_OrderInfo", vnp_OrderInfo);
+        String vnp_TransactionNo = transaction.getTransactionNo();
+        params.put("vnp_TransactionNo", vnp_TransactionNo);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        String vnp_TransactionDate = formatter.format(transaction.getCreatedAt());
+        params.put("vnp_TransactionDate", vnp_TransactionDate);
+
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        String vnp_CreateDate = formatter.format(cld.getTime());
+        params.put("vnp_CreateDate", vnp_CreateDate);
+
+        String vnp_IpAddr = Config.getIpAddress();
+        params.put("vnp_IpAddr", vnp_IpAddr);
+
+        List fieldNames = new ArrayList(params.keySet());
+        Collections.sort(fieldNames);
+        StringBuilder hashData = new StringBuilder();
+        StringBuilder query = new StringBuilder();
+        Iterator itr = fieldNames.iterator();
+        while (itr.hasNext()) {
+            String fieldName = (String) itr.next();
+            String fieldValue = (String) params.get(fieldName);
+            if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                //Build hash data
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                //Build query
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                if (itr.hasNext()) {
+                    query.append('&');
+                    hashData.append('&');
+                }
+            }
+        }
+        String queryUrl = query.toString();
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        return Config.vnp_ApiUrl + "?" + queryUrl;
+
+    }
+
+    /*public String getDetailsTransaction(String url) throws  IOException, PaymentException {
+        URL _url = new URL (Config.vnp_ApiUrl);
+        var con = (HttpURLConnection)_url.openConnection();
+        con.setRequestMethod("POST");
+
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(vnp_Params.toString());
+        wr.flush();
+        wr.close();
+        int responseCode = con.getResponseCode();
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String output;
+        StringBuffer response = new StringBuffer();
+        while ((output = in.readLine()) != null) {
+            response.append(output);
+        }
+        in.close();
+
+    }*/
 }
