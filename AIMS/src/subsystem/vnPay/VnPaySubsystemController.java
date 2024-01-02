@@ -239,63 +239,71 @@ public class VnPaySubsystemController implements VnPayInterface {
     }
 
     public String generateTransQueryUrl(PaymentTransaction transaction) throws IOException {
-        HashMap<String, String> params = new HashMap<>();
+        JsonObject params =new JsonObject ();
 
         String vnp_RequestId = Config.getRandomNumber(8);
-        params.put("vnp_RequestId", vnp_RequestId);
+        params.addProperty("vnp_RequestId", vnp_RequestId);
         String vnp_Version = "2.1.0";
-        params.put("vnp_Version", vnp_Version);
+        params.addProperty("vnp_Version", vnp_Version);
         String vnp_Command = "querydr";
-        params.put("vnp_Command", vnp_Command);
+        params.addProperty("vnp_Command", vnp_Command);
 
         String vnp_TmnCode = Config.vnp_TmnCode;
-        params.put("vnp_TmnCode", vnp_TmnCode);
+        params.addProperty("vnp_TmnCode", vnp_TmnCode);
         String vnp_TxnRef = transaction.getTxnRef();
-        params.put("vnp_TxnRef", vnp_TxnRef);
+        params.addProperty("vnp_TxnRef", vnp_TxnRef);
 
         String vnp_OrderInfo = transaction.getTransactionContent();
-        params.put("vnp_OrderInfo", vnp_OrderInfo);
+        params.addProperty("vnp_OrderInfo", vnp_OrderInfo);
         String vnp_TransactionNo = transaction.getTransactionNo();
-        params.put("vnp_TransactionNo", vnp_TransactionNo);
+        params.addProperty("vnp_TransactionNo", vnp_TransactionNo);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_TransactionDate = formatter.format(transaction.getCreatedAt());
-        params.put("vnp_TransactionDate", vnp_TransactionDate);
+        params.addProperty("vnp_TransactionDate", vnp_TransactionDate);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         String vnp_CreateDate = formatter.format(cld.getTime());
-        params.put("vnp_CreateDate", vnp_CreateDate);
+        params.addProperty("vnp_CreateDate", vnp_CreateDate);
 
         String vnp_IpAddr = Config.getIpAddress();
-        params.put("vnp_IpAddr", vnp_IpAddr);
+        params.addProperty("vnp_IpAddr", vnp_IpAddr);
 
-        List fieldNames = new ArrayList(params.keySet());
-        Collections.sort(fieldNames);
-        StringBuilder hashData = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
-            String fieldValue = (String) params.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
-                hashData.append(fieldName);
-                hashData.append('=');
-                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                //Build query
-                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                query.append('=');
-                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                if (itr.hasNext()) {
-                    query.append('&');
-                    hashData.append('&');
-                }
-            }
+        String hash_Data= String.join("|", vnp_RequestId, vnp_Version, vnp_Command, vnp_TmnCode, vnp_TxnRef, vnp_TransactionDate, vnp_CreateDate, vnp_IpAddr, vnp_OrderInfo);
+
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hash_Data.toString());
+
+        params.addProperty("vnp_SecureHash", vnp_SecureHash);
+
+        System.out.println(params.toString());
+
+        //return Config.vnp_ApiUrl + params.toString();
+
+        URL url = new URL (Config.vnp_ApiUrl);
+        var con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("POST");
+
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(params.toString());
+        wr.flush();
+        wr.close();
+        int responseCode = con.getResponseCode();
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String output;
+        StringBuffer response = new StringBuffer();
+        while ((output = in.readLine()) != null) {
+            response.append(output);
         }
-        String queryUrl = query.toString();
-        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        return Config.vnp_ApiUrl + "?" + queryUrl;
+        in.close();
+
+        System.out.println(responseCode);
+
+        return response.toString();
+        /*return handleRefundResponse(response.toString());*/
 
     }
 
