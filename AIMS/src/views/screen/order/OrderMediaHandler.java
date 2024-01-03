@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import utils.Configs;
 import utils.Utils;
 import utils.enums.OrderStatus;
@@ -64,12 +65,25 @@ public class OrderMediaHandler extends FXMLScreenHandler {
     @FXML
     private VBox vboxBtns;
 
+    @FXML
+    private Button detailOrderBtn;
+
     private OrderScreenHandler orderMediaHandler;
     private Order order;
     public OrderMediaHandler(String screenPath, OrderScreenHandler orderScreenHandler) throws IOException {
         super(screenPath);
-        this.orderMediaHandler = orderScreenHandler;
 
+        this.orderMediaHandler = orderScreenHandler;
+        detailOrderBtn.setOnMouseClicked(e -> {
+            Stage newWindow = new Stage();
+            try {
+
+                OrderDetailHandler resultScreenHandler = new OrderDetailHandler(newWindow,Configs.ORDER_DETAILS_PATH, order);
+                resultScreenHandler.showScreen();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
     }
 
