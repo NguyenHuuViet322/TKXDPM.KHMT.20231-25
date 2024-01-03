@@ -17,7 +17,7 @@ public class AccountController extends BaseController {
         return acc;
     }
 
-    public void signup(String username, String password, String confirmPassword, String name, String birthDate, String phoneNumber) throws SQLException {
+    public void signup(String name, String username, String password, String confirmPassword, String birthDate, String phoneNumber) throws SQLException {
         if (password.compareTo(confirmPassword) == 0) {
             Account loginAccount = new Account(username, password, name, birthDate, phoneNumber);
             acc = loginAccount.signup();
