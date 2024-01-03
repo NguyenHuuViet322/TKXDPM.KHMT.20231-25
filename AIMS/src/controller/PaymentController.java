@@ -28,22 +28,30 @@ public class PaymentController extends BaseController {
      */
     private VnPayInterface vnPayService;
 
+<<<<<<< HEAD
+    public PaymentController(){
+        this.vnPayService = new VnPaySubsystemController();
+    }
+
+=======
     public PaymentController() {
         this.vnPayService = new VnPaySubsystemController();
     }
+>>>>>>> parent of 93f8c57 (Revert "fix db and payment controller")
     //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
         PaymentTransaction trans = null;
         try {
 
-             trans = this.vnPayService.makePaymentTransaction(res);
+            trans = this.vnPayService.makePaymentTransaction(res);
             if(trans != null) trans.save(orderId);
             var order = new Order();
             if(trans.getErrorCode().equals("00")){
                 result.put("RESULT", "PAYMENT SUCCESSFUL!");
                 result.put("MESSAGE", "You have succesffully paid the order!");
                 order.updateStatus(OrderStatus.Paid, orderId);
+                System.out.println(vnPayService.generateTransQueryUrl(trans));
             } else{
                 var ex = TransactionExceptionHolder.getInstance().getException(trans.getErrorCode());
                 if(ex != null){
@@ -63,12 +71,13 @@ public class PaymentController extends BaseController {
             result.put("RESULT", "PAYMENT FAILED!");
 
         }
-         catch (ParseException e) {
+        catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
 
-        
         return result;
     }
 

@@ -13,6 +13,7 @@ import common.exception.vnPayException.TransactionExceptionHolder;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,12 +30,12 @@ public class VnPaySubsystemController implements VnPayInterface {
     private final String VERSION = "2.1.0";
 
 
-   /**
-    * Data coupling
-    * Functional cohesion
-    * @param money
-    * @param contents
-    */
+    /**
+     * Data coupling
+     * Functional cohesion
+     * @param money
+     * @param contents
+     */
     @Override
     public String generatePayUrl(int money, String contents) throws IOException {
         String vnp_Version = "2.1.0";
@@ -129,7 +130,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         Date date = dateFormat.parse(createdAt);
         PaymentTransaction trans = new
                 PaymentTransaction(errorCode, transactionId, transactionContent, amount, date, cardType, txnRef);
-            return trans;
+        return trans;
     }
 
     public RefundResponse refund(RefundTransaction refundTransaction) throws  IOException, PaymentException {
@@ -240,4 +241,72 @@ public class VnPaySubsystemController implements VnPayInterface {
         return trans;
     }
 
+    public String generateTransQueryUrl(PaymentTransaction transaction) throws IOException {
+        JsonObject params =new JsonObject ();
+
+        String vnp_RequestId = Config.getRandomNumber(8);
+        params.addProperty("vnp_RequestId", vnp_RequestId);
+        String vnp_Version = "2.1.0";
+        params.addProperty("vnp_Version", vnp_Version);
+        String vnp_Command = "querydr";
+        params.addProperty("vnp_Command", vnp_Command);
+
+        String vnp_TmnCode = Config.vnp_TmnCode;
+        params.addProperty("vnp_TmnCode", vnp_TmnCode);
+        String vnp_TxnRef = transaction.getTxnRef();
+        params.addProperty("vnp_TxnRef", vnp_TxnRef);
+
+        String vnp_OrderInfo = transaction.getTransactionContent();
+        params.addProperty("vnp_OrderInfo", vnp_OrderInfo);
+        String vnp_TransactionNo = transaction.getTransactionNo();
+        params.addProperty("vnp_TransactionNo", vnp_TransactionNo);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        String vnp_TransactionDate = formatter.format(transaction.getCreatedAt());
+        params.addProperty("vnp_TransactionDate", vnp_TransactionDate);
+
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        String vnp_CreateDate = formatter.format(cld.getTime());
+        params.addProperty("vnp_CreateDate", vnp_CreateDate);
+
+        String vnp_IpAddr = Config.getIpAddress();
+        params.addProperty("vnp_IpAddr", vnp_IpAddr);
+
+        String hash_Data= String.join("|", vnp_RequestId, vnp_Version, vnp_Command, vnp_TmnCode, vnp_TxnRef, vnp_TransactionDate, vnp_CreateDate, vnp_IpAddr, vnp_OrderInfo);
+
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hash_Data.toString());
+
+        params.addProperty("vnp_SecureHash", vnp_SecureHash);
+
+        System.out.println(params.toString());
+
+        //return Config.vnp_ApiUrl + params.toString();
+
+        URL url = new URL (Config.vnp_ApiUrl);
+        var con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("POST");
+
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(params.toString());
+        wr.flush();
+        wr.close();
+        int responseCode = con.getResponseCode();
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String output;
+        StringBuffer response = new StringBuffer();
+        while ((output = in.readLine()) != null) {
+            response.append(output);
+        }
+        in.close();
+
+        System.out.println(responseCode);
+
+        return response.toString();
+        /*return handleRefundResponse(response.toString());*/
+
+    }
 }
