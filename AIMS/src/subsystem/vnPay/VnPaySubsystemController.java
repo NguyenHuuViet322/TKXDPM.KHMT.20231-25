@@ -3,6 +3,7 @@ package subsystem.vnPay;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import common.exception.*;
+import entity.order.entities.DetailResponse;
 import entity.order.entities.RefundTransaction;
 import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
@@ -13,7 +14,6 @@ import common.exception.vnPayException.TransactionExceptionHolder;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -241,7 +241,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         return trans;
     }
 
-    public String generateTransQueryUrl(PaymentTransaction transaction) throws IOException {
+    public DetailResponse getDetailTransaction(PaymentTransaction transaction) throws IOException {
         JsonObject params =new JsonObject ();
 
         String vnp_RequestId = Config.getRandomNumber(8);
@@ -305,8 +305,86 @@ public class VnPaySubsystemController implements VnPayInterface {
 
         System.out.println(responseCode);
 
-        return response.toString();
+        return handleDetailResponse(response.toString());
         /*return handleRefundResponse(response.toString());*/
 
+    }
+
+    public DetailResponse handleDetailResponse(String res) {
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> resultMap = new Gson().fromJson(res, type);
+
+
+
+        System.out.println(resultMap.toString());
+
+        var trans = new DetailResponse();
+        trans.setAmount(resultMap.get("vnp_Amount"));
+        trans.setOrderInfo(resultMap.get("vnp_OrderInfo"));
+        String payDate = resultMap.get("vnp_PayDate");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+        Date day = null;
+        try {
+            day = dateFormat.parse(payDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        trans.setPayDate(day);
+
+        trans.setBankCode(resultMap.get("vnp_BankCode"));
+        trans.setTransactionId(resultMap.get("vnp_TransactionId"));
+
+        String transType = resultMap.get("vnp_TransactionType");
+        switch (transType) {
+            case "01":
+                transType = "Giao dich thanh toan";
+                break;
+            case "02":
+                transType = "Giao dich hoan tra mot phan";
+                break;
+            case "03":
+                transType = "Giao dich hoan tra toan bo";
+                break;
+            default:
+                break;
+        }
+        trans.setTransactionType(transType);
+        String statusText ="";
+        var status = resultMap.get("vnp_TransactionStatus");
+        switch (status) {
+            case "00":
+                statusText = "Giao dịch thành công";
+                break;
+            case "01":
+                statusText = "Giao dịch chưa hoàn tất";
+                break;
+            case "02":
+                statusText = "Giao dịch bị lỗi";
+                break;
+            case "04":
+                statusText = "Giao dịch đảo";
+                break;
+            case "05":
+                statusText = "VNPAY đang xử lý giao dịch này";
+                break;
+            case "06":
+                statusText = "VNPAY đã gửi yêu cầu hoàn tiền sang Ngân hàng";
+                break;
+            case "07":
+                statusText = "Giao dịch bị nghi ngờ gian lận";
+                break;
+            case "09":
+                statusText = "GD Hoàn trả bị từ chối";
+                break;
+            default:
+                break;
+        }
+        trans.setTransactionStatus(statusText);
+        trans.setPromotionCode(resultMap.get("vnp_PromotionCode"));
+        trans.setPromotionAmount(resultMap.get("vnp_PromotionAmount"));
+
+        return trans;
     }
 }
