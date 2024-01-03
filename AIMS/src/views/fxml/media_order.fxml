@@ -102,6 +102,6 @@
                </children></VBox>
          </children>
       </HBox>
-      <Button fx:id="detailOrderBtn" defaultButton="true" layoutX="-2.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="227.0" prefWidth="1172.0" text="DetailOrder" />
+      <Button fx:id="detailOrderBtn" defaultButton="true" layoutX="-2.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.0" prefHeight="227.0" prefWidth="1172.0" text="DetailOrder" />
    </children>
 </AnchorPane>

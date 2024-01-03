@@ -324,17 +324,16 @@ public class VnPaySubsystemController implements VnPayInterface {
         String payDate = resultMap.get("vnp_PayDate");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-        Date day = null;
         try {
-            day = dateFormat.parse(payDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            Date day = dateFormat.parse(payDate);
+            trans.setPayDate(day.toString());
         }
-        trans.setPayDate(day);
+        catch (ParseException e){
+            System.out.println(e);
+        }
 
         trans.setBankCode(resultMap.get("vnp_BankCode"));
-        trans.setTransactionId(resultMap.get("vnp_TransactionId"));
+        trans.setTransactionId(resultMap.get("vnp_TransactionNo"));
 
         String transType = resultMap.get("vnp_TransactionType");
         switch (transType) {

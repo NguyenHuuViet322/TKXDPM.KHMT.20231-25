@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import views.screen.BaseScreenHandler;
 import views.screen.FXMLScreenHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.IOException;
@@ -64,9 +65,9 @@ public class OrderDetailHandler extends BaseScreenHandler {
         transactionId.setText(response.getTransactionId());
         bankCode.setText(response.getBankCode());
         amount.setText(response.getAmount());
-        Date paydate = response.getPayDate();
-        if (payDate != null)
-            payDate.setText(paydate.toString());
+        String text = response.getPayDate();
+        System.out.println("text: " + text);
+        payDate.setText(text);
         transactionType.setText(response.getTransactionType());
         transactionStatus.setText(response.getTransactionStatus());
         orderInfo.setText(response.getOrderInfo());

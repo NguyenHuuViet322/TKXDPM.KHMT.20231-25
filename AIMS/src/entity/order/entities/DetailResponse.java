@@ -10,7 +10,7 @@ public class DetailResponse {
 
     private String bankCode;
 
-    private Date payDate;
+    private String payDate;
 
     private String transactionId;
 
@@ -26,7 +26,7 @@ public class DetailResponse {
 
     }
 
-    public DetailResponse(String amount, String orderInfo, String bankCode, Date payDate, String transactionId, String transactionType, String transactionStatus, String promotionCode, String promotionAmount) {
+    public DetailResponse(String amount, String orderInfo, String bankCode, String payDate, String transactionId, String transactionType, String transactionStatus, String promotionCode, String promotionAmount) {
         this.amount = amount;
         this.orderInfo = orderInfo;
         this.bankCode = bankCode;
@@ -56,10 +56,12 @@ public class DetailResponse {
     public String getBankCode() {
         return bankCode;
     }
-    public void setPayDate(Date payDate) {
+    public void setPayDate(String payDate) {
         this.payDate = payDate;
+
     }
-    public Date getPayDate() {
+    public String getPayDate() {
+        System.out.println("payDate: " + payDate);
         return payDate;
     }
     public void setTransactionId(String transactionId) {
