@@ -13,7 +13,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
     protected final Stage stage;
     protected HomeScreenHandler homeScreenHandler;
     protected Hashtable<String, String> messages;
-    protected Scene scene;
+    private Scene scene;
     private BaseScreenHandler prev;
     private BaseController bController;
 
