@@ -301,10 +301,9 @@ This is a Capstone's source code for Software Design and Construction project
 -   Pull Request:
 -   Specific implementation details:
     -   Đánh giá package controller:
-	-   Tuân thủ một số nguyên tắc trong SOLID, (chủ yếu là SRP)
-	-   Có thể cải thiện bằng cách tách nhỏ một số function, do có một số function đang hoạt động quá nhiều chức năng
-	-   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc
-
+    -   Tuân thủ một số nguyên tắc trong SOLID, (chủ yếu là SRP)
+    -   Có thể cải thiện bằng cách tách nhỏ một số function, do có một số function đang hoạt động quá nhiều chức năng
+    -   Một số lớp phụ thuộc quá nhiều vào lớp bên ngoài, cần giảm bớt sự phụ thuộc
 
 </details>
 
@@ -382,6 +381,16 @@ This is a Capstone's source code for Software Design and Construction project
     -   **Lập trình** cho Use case **Đăng nhập** và **đăng kí**
 
 </details>
+<summary>Nguyễn Thế Vũ</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Hủy đơn hàng** và **Hoàn trả**
+    -   Task: Lập trình mã nguồn cho UC **Hủy đơn hàng** và **Hoàn trả**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Hủy đơn hàng** và **Hoàn trả**
+    -	Thêm biểu đồ **trình tự** cho UC **Hủy đơn hàng** và **Hoàn trả**
+    -   **Lập trình** cho Use case **Hủy đơn hàng** và **Hoàn trả**
+
 </details>
-
-
+</details>

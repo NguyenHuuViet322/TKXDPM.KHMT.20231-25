@@ -6,7 +6,7 @@ import entity.order.Order;
 import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
 import subsystem.vnPay.VnPaySubsystemController;
-import common.exception.vnPayException.PaymentExceptionHolder;
+import common.exception.vnPayException.TransactionExceptionHolder;
 import utils.enums.OrderStatus;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class PaymentController extends BaseController {
                 order.updateStatus(OrderStatus.Paid, orderId);
                 System.out.println(vnPayService.getDetailTransaction(trans));
             } else{
-                var ex = PaymentExceptionHolder.getInstance().getException(trans.getErrorCode());
+                var ex = TransactionExceptionHolder.getInstance().getException(trans.getErrorCode());
                 if(ex != null){
                     result.put("MESSAGE", ex.getMessage());
                     result.put("RESULT", "PAYMENT FAILED!");

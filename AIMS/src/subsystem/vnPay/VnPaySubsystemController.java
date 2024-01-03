@@ -9,7 +9,7 @@ import entity.payment.PaymentTransaction;
 import subsystem.VnPayInterface;
 import com.google.gson.JsonObject;
 import entity.order.entities.RefundResponse;
-import common.exception.vnPayException.PaymentExceptionHolder;
+import common.exception.vnPayException.TransactionExceptionHolder;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -186,6 +186,11 @@ public class VnPaySubsystemController implements VnPayInterface {
 
         vnp_Params.addProperty("vnp_SecureHash", vnp_SecureHash);
 
+        var response = refundRequest(vnp_Params);
+        return handleRefundResponse(response);
+
+    }
+    private String refundRequest(JsonObject vnp_Params) throws IOException {
         URL url = new URL (Config.vnp_ApiUrl);
         var con = (HttpURLConnection)url.openConnection();
         con.setRequestMethod("POST");
@@ -206,10 +211,8 @@ public class VnPaySubsystemController implements VnPayInterface {
             response.append(output);
         }
         in.close();
-        return handleRefundResponse(response.toString());
-
+        return response.toString();
     }
-
     private RefundResponse handleRefundResponse(String response) throws PaymentException {
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> resultMap = new Gson().fromJson(response, type);
@@ -231,7 +234,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         trans.setCreatedAt(date);
         trans.setTransactionContent(resultMap.get("vnp_TransactionNo"));
         trans.setTxnRef(resultMap.get("vnp_TxnRef"));
-        var ex = PaymentExceptionHolder.getInstance().getException(trans.getErrorCode());
+        var ex = TransactionExceptionHolder.getInstance().getException(trans.getErrorCode());
         if(ex != null){
             throw ex;
         }
