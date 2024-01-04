@@ -3,9 +3,11 @@ package subsystem.vnPay;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import common.exception.*;
+import entity.order.Order;
 import entity.order.entities.DetailResponse;
 import entity.order.entities.RefundTransaction;
 import entity.payment.PaymentTransaction;
+import javafx.scene.control.Alert;
 import subsystem.VnPayInterface;
 import com.google.gson.JsonObject;
 import entity.order.entities.RefundResponse;
@@ -241,7 +243,8 @@ public class VnPaySubsystemController implements VnPayInterface {
         return trans;
     }
 
-    public DetailResponse getDetailTransaction(PaymentTransaction transaction) throws IOException {
+    public DetailResponse getDetailTransaction(Order order) throws IOException {
+        PaymentTransaction transaction = order.getPaymentTransaction();
         JsonObject params =new JsonObject ();
 
         String vnp_RequestId = Config.getRandomNumber(8);
@@ -314,11 +317,41 @@ public class VnPaySubsystemController implements VnPayInterface {
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> resultMap = new Gson().fromJson(res, type);
 
-
-
-        System.out.println(resultMap.toString());
-
         var trans = new DetailResponse();
+
+        var errorCode = resultMap.get("vnp_ResponseCode");
+        if (!errorCode.equals("00")) {
+            String message = null;
+            switch (errorCode) {
+                case "02":
+                    message = "Mã định danh kết nối không hợp lệ (kiểm tra lại TmnCode)";
+                    break;
+                case "03":
+                    message = "Dữ liệu gửi sang không đúng định dạng";
+                    break;
+                case "91":
+                    message = "Không tìm thấy giao dịch yêu cầu";
+                    break;
+                case "94":
+                    message = "Yêu cầu trùng lặp, duplicate request trong thời gian giới hạn của API";
+                    break;
+                case "97":
+                    message = "Checksum không hợp lệ";
+                    break;
+                case "99":
+                    message = "Lỗi không xác định";
+                    break;
+                default:
+                    message = "Lỗi không xác định";
+                    break;
+            }
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+            throw new RuntimeException(message);
+        }
         trans.setAmount(resultMap.get("vnp_Amount"));
         trans.setOrderInfo(resultMap.get("vnp_OrderInfo"));
         String payDate = resultMap.get("vnp_PayDate");

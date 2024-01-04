@@ -1,6 +1,7 @@
 package subsystem;
 
 import common.exception.PaymentException;
+import entity.order.Order;
 import entity.order.entities.DetailResponse;
 import entity.order.entities.RefundTransaction;
 import entity.payment.PaymentTransaction;
@@ -20,7 +21,7 @@ public interface VnPayInterface {
     String generatePayUrl(int amount, String contents)
             throws  IOException;
 
-    public DetailResponse getDetailTransaction(PaymentTransaction transaction) throws IOException;
+    public DetailResponse getDetailTransaction(Order order) throws IOException;
     RefundResponse refund(RefundTransaction refundTransaction) throws PaymentException, IOException;
     PaymentTransaction
     makePaymentTransaction(Map<String, String> response) throws ParseException;

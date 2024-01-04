@@ -75,16 +75,20 @@ public class OrderMediaHandler extends FXMLScreenHandler {
 
         this.orderMediaHandler = orderScreenHandler;
         detailOrderBtn.setOnMouseClicked(e -> {
-            Stage newWindow = new Stage();
-            try {
-
-                OrderDetailHandler resultScreenHandler = new OrderDetailHandler(newWindow,Configs.ORDER_DETAILS_PATH, order);
-                resultScreenHandler.showScreen();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            getDetailRequestHandle();
         });
 
+    }
+
+    private void getDetailRequestHandle() {
+        Stage newWindow = new Stage();
+        try {
+
+            OrderDetailHandler resultScreenHandler = new OrderDetailHandler(newWindow,Configs.ORDER_DETAILS_PATH, order);
+            resultScreenHandler.showScreen();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 
     public void setOrder(Order order) {
