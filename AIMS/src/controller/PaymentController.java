@@ -46,7 +46,6 @@ public class PaymentController extends BaseController {
                 result.put("RESULT", "PAYMENT SUCCESSFUL!");
                 result.put("MESSAGE", "You have succesffully paid the order!");
                 order.updateStatus(OrderStatus.Paid, orderId);
-                System.out.println(vnPayService.getDetailTransaction(trans));
             } else{
                 var ex = TransactionExceptionHolder.getInstance().getException(trans.getErrorCode());
                 if(ex != null){
@@ -67,8 +66,6 @@ public class PaymentController extends BaseController {
 
         }
         catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

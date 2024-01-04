@@ -5,6 +5,7 @@ import entity.order.entities.DetailResponse;
 import entity.payment.TransactionResult;
 import common.exception.vnPayException.ProcessingException;
 import entity.order.Order;
+import javafx.scene.control.Alert;
 import subsystem.VnPayInterface;
 import entity.order.entities.RefundTransaction;
 import subsystem.vnPay.VnPaySubsystemController;
@@ -91,8 +92,8 @@ public class OrderController extends BaseController {
    }
 
    public DetailResponse getDetailOrder(Order order) throws IOException {
-        var response = vnPayService.getDetailTransaction(order.getPaymentTransaction());
-        return  response;
+        var response = vnPayService.getDetailTransaction(order);
+        return response;
    }
 
 }
