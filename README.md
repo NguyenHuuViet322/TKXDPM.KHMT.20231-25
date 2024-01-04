@@ -381,6 +381,20 @@ This is a Capstone's source code for Software Design and Construction project
     -   **Lập trình** cho Use case **Đăng nhập** và **đăng kí**
 
 </details>
+<details>
+<summary>Ninh Thành Vinh</summary>
+	
+-   Assigned tasks:  
+    -   Task: Phân tích yêu cầu và thiết kế kiến trúc cho UC **Chi tiết đơn hàng**
+    -   Task: Lập trình mã nguồn cho UC **Chi tiết đơn hàng**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm đặc tả UC và biểu đồ hoạt động cho UC **Chi tiết đơn hàng**
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Chi tiết đơn hàng** và **Subsystem VNPay**
+    -	Thêm biểu đồ **trình tự** cho UC **Chi tiết đơn hàng**
+    -   **Lập trình** cho Use case **Chi tiết đơn hàng**
+
+</details>
 <summary>Nguyễn Thế Vũ</summary>
 	
 -   Assigned tasks:
