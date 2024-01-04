@@ -5,10 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutY="42.0" prefHeight="358.0" prefWidth="600.0">
+      <VBox layoutY="50.0" prefHeight="314.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="53.0" prefWidth="600.0">
                <children>
@@ -23,7 +22,7 @@
                   <TextField prefHeight="65.0" prefWidth="110.0" text="Số tiền: " />
                   <TextField fx:id="amount" prefHeight="57.0" prefWidth="153.0" />
                   <TextField prefHeight="57.0" prefWidth="151.0" text="Thời gian giao dịch:" />
-                  <TextField prefHeight="57.0" prefWidth="173.0" />
+                  <TextField fx:id="payDate" prefHeight="57.0" prefWidth="173.0" />
                </children>
             </HBox>
             <HBox prefHeight="60.0" prefWidth="600.0">
@@ -48,11 +47,6 @@
                   <TextField fx:id="promotionAmount" prefHeight="50.0" prefWidth="170.0" />
                </children>
             </HBox>
-            <Pane fx:id="closeBtn" prefHeight="36.0" prefWidth="574.0">
-               <children>
-                  <Button layoutX="470.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="117.0" text="Close" />
-               </children>
-            </Pane>
          </children>
       </VBox>
       <TextArea prefHeight="44.0" prefWidth="589.0" text="Chi tiết giao dịch của đơn hàng">
