@@ -61,10 +61,12 @@ public class OrderDetailHandler extends BaseScreenHandler {
 
 
     public void initScreen(DetailResponse response) {
+        System.out.println(response.toString());
         transactionId.setText(response.getTransactionId());
         bankCode.setText(response.getBankCode());
         amount.setText(response.getAmount());
         String text = response.getPayDate();
+        System.out.println("text: " + text);
         payDate.setText(text);
         transactionType.setText(response.getTransactionType());
         transactionStatus.setText(response.getTransactionStatus());
