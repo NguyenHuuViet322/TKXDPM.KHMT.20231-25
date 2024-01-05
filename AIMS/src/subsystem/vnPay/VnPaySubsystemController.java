@@ -281,8 +281,6 @@ public class VnPaySubsystemController implements VnPayInterface {
 
         params.addProperty("vnp_SecureHash", vnp_SecureHash);
 
-        System.out.println(params.toString());
-
         //return Config.vnp_ApiUrl + params.toString();
 
         URL url = new URL (Config.vnp_ApiUrl);
@@ -306,8 +304,6 @@ public class VnPaySubsystemController implements VnPayInterface {
         }
         in.close();
 
-        System.out.println(responseCode);
-
         return handleDetailResponse(response.toString());
         /*return handleRefundResponse(response.toString());*/
 
@@ -320,6 +316,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         var trans = new DetailResponse();
 
         var errorCode = resultMap.get("vnp_ResponseCode");
+        System.out.println(errorCode);
         if (!errorCode.equals("00")) {
             String message = null;
             switch (errorCode) {
