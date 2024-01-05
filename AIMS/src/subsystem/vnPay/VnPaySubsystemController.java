@@ -316,6 +316,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         var trans = new DetailResponse();
 
         var errorCode = resultMap.get("vnp_ResponseCode");
+        System.out.println(errorCode);
         if (!errorCode.equals("00")) {
             String message = null;
             switch (errorCode) {
@@ -412,6 +413,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         trans.setTransactionStatus(statusText);
         trans.setPromotionCode(resultMap.get("vnp_PromotionCode"));
         trans.setPromotionAmount(resultMap.get("vnp_PromotionAmount"));
+
         return trans;
     }
 }
