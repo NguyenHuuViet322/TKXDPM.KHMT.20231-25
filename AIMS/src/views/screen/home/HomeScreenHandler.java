@@ -67,11 +67,16 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
 
+    @FXML
+    private HBox pageNumberHbox;
+
     private List homeItems;
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
+
+    private int numberMediaPerPage = 12;
 
     /**
      * @return Label
@@ -111,6 +116,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 // Control Coupling
 // Control Cohesion
     public void initialize(URL arg0, ResourceBundle arg1) {
+        numberMediaPerPage = 12;
         setBController(new HomeController());
         try {
             List medium = getBController().getAllMedia();
@@ -123,6 +129,19 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         } catch (SQLException | IOException e) {
             LOGGER.info("Errors occured: " + e.getMessage());
             e.printStackTrace();
+        }
+
+        int numberOfPage = (int) Math.ceil((double) homeItems.size() / numberMediaPerPage);
+
+        for (int i = 0; i < numberOfPage; i++){
+            Button button = new Button(String.valueOf(i + 1));
+            button.setOnMouseClicked(e -> {
+                int pageNumber = Integer.parseInt(button.getText()) - 1;
+                List mediaPaged = GetMediaPaged(pageNumber);
+                addMediaHome(mediaPaged);
+                System.out.println("Page " + button.getText() + " clicked");
+            });
+            pageNumberHbox.getChildren().add(button);
         }
 
         login.setOnMouseClicked(e -> {
@@ -139,7 +158,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         });
 
         aimsImage.setOnMouseClicked(e -> {
-            addMediaHome(this.homeItems);
+            addMediaHome(GetMediaPaged(1));
         });
 
         cartImage.setOnMouseClicked(e -> {
@@ -181,6 +200,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         File file2 = new File(Configs.IMAGE_PATH + "/" + "cart.png");
         Image img2 = new Image(file2.toURI().toString());
         cartImage.setImage(img2);
+    }
+
+    public List GetMediaPaged(int pageNumber) {
+        int startIndex = pageNumber * numberMediaPerPage;
+        int lastIndex = Math.min(startIndex + numberMediaPerPage, homeItems.size());
+        List mediaPaged = new ArrayList<>(homeItems.subList(startIndex, lastIndex));
+        return mediaPaged;
     }
 
     /**
@@ -243,6 +269,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             addMediaHome(filteredItems);
         });
         menuButton.getItems().add(position, menuItem);
+    }
+
+    public void removeMedia(Media media) {
+        homeItems.remove(media);
     }
 
 }
