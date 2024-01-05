@@ -6,9 +6,11 @@ import entity.invoice.Invoice;
 import entity.media.Media;
 import entity.order.Order;
 import entity.order.OrderMedia;
+import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ public class PlaceOrderController extends BaseController {
      *
      * @throws SQLException
      */
+    //Coincidental Cohesion
     //Không xác định coupling
     public void placeOrder() throws SQLException {
         Cart.getCart().checkAvailabilityOfProduct();
@@ -37,6 +40,8 @@ public class PlaceOrderController extends BaseController {
      * @return Order
      * @throws SQLException
      */
+
+    //Functional Cohesion
     //Control Coupling
     public Order createOrder() throws SQLException {
         Order order = new Order();
@@ -56,8 +61,11 @@ public class PlaceOrderController extends BaseController {
      * @param order
      * @return Invoice
      */
+
+    //Functional Cohesion
     //Control coupling
     public Invoice createInvoice(Order order) {
+
         order.createOrderEntity();
         return new Invoice(order);
     }
@@ -69,6 +77,8 @@ public class PlaceOrderController extends BaseController {
      * @throws InterruptedException
      * @throws IOException
      */
+
+    //Coincidental Cohesion
     //Data Coupling
     public void processDeliveryInfo(HashMap info) throws InterruptedException, IOException {
         validateDeliveryInfo(info);
@@ -81,6 +91,8 @@ public class PlaceOrderController extends BaseController {
      * @throws InterruptedException
      * @throws IOException
      */
+    //Không xác định cohesion
+    //Không xác dịnh coupling
     public void validateDeliveryInfo(HashMap<String, String> info) throws InterruptedException, IOException {
 
     }
@@ -90,6 +102,8 @@ public class PlaceOrderController extends BaseController {
      * @param phoneNumber
      * @return boolean
      */
+
+    //Functional Cohesion
     //Control Coupling
     public boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 10)
@@ -110,6 +124,8 @@ public class PlaceOrderController extends BaseController {
      * @param name
      * @return boolean
      */
+
+    //Functional Cohesion
     //Control Coupling
     public boolean validateContainLetterAndNoEmpty(String name) {
         // Check name is not null
@@ -131,6 +147,8 @@ public class PlaceOrderController extends BaseController {
      * @param order
      * @return shippingFee
      */
+
+    //Không xác định cohesion
     //không xác định coupling
     public int calculateShippingFee(int amount) {
         Random rand = new Random();
@@ -145,6 +163,8 @@ public class PlaceOrderController extends BaseController {
      * @return media
      * @throws SQLException
      */
+
+    //Functional Cohesion
     //Control Coupling
     public Media getProductAvailablePlaceRush(Order order) throws SQLException {
         Media media = new Media();
@@ -163,6 +183,8 @@ public class PlaceOrderController extends BaseController {
      * @param address
      * @return boolean
      */
+
+    //Functional Cohesion
     //Control Coupling
     public boolean validateAddressPlaceRushOrder(String province, String address) {
         if (!validateContainLetterAndNoEmpty(address))
@@ -176,6 +198,8 @@ public class PlaceOrderController extends BaseController {
     /**
      * @return boolean
      */
+
+    //Functional Cohesion
     //Control Coupling
     public boolean validateMediaPlaceRushorder() {
         if (Media.getIsSupportedPlaceRushOrder())

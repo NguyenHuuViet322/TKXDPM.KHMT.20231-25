@@ -21,17 +21,18 @@ public class BaseController {
      * @param media media object
      * @return CartMedia or null
      */
+    //Functional Cohesion
     //Control Coupling
     public CartMedia checkMediaInCart(Media media) {
         return Cart.getCart().checkMediaInCart(media);
     }
 
-    //
     /**
      * This method gets the list of items in cart.
      *
      * @return List[CartMedia]
      */
+    //Functional Cohesion
     //Không xác đinh coupling
     public List getListCartMedia() {
         return Cart.getCart().getListMedia();

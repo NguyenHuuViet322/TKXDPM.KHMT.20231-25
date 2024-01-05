@@ -16,6 +16,8 @@ public class ViewCartController extends BaseController {
      *
      * @throws SQLException
      */
+
+    //Functional Cohesion
     //Control Coupling
     public void checkAvailabilityOfProduct() throws SQLException {
         Cart.getCart().checkAvailabilityOfProduct();
@@ -26,6 +28,8 @@ public class ViewCartController extends BaseController {
      *
      * @return subtotal
      */
+
+    //Không xác định cohesion
     //không xác định coupling
     public int getCartSubtotal() {
         int subtotal = Cart.getCart().calSubtotal();
