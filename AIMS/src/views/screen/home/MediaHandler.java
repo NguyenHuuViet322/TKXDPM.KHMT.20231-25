@@ -45,6 +45,13 @@ public class MediaHandler extends FXMLScreenHandler {
         super(screenPath);
         this.media = media;
         this.home = home;
+        deleteBtn.setOnMouseClicked(e -> {
+            try {
+                deleteProduct();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         addToCartBtn.setOnMouseClicked(event -> {
             try {
                 if (spinnerChangeNumber.getValue() > media.getQuantity()) throw new MediaNotAvailableException();
@@ -80,7 +87,7 @@ public class MediaHandler extends FXMLScreenHandler {
         setMediaInfo();
     }
 
-    private void deleteProduct() {
+    private void deleteProduct() throws SQLException {
         home.removeMedia(this.media);
     }
 
