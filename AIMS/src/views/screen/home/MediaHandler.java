@@ -35,6 +35,9 @@ public class MediaHandler extends FXMLScreenHandler {
     protected Spinner<Integer> spinnerChangeNumber;
     @FXML
     protected Button addToCartBtn;
+    @FXML
+    private Button deleteBtn;
+
     private Media media;
     private HomeScreenHandler home;
 
@@ -77,6 +80,9 @@ public class MediaHandler extends FXMLScreenHandler {
         setMediaInfo();
     }
 
+    private void deleteProduct() {
+        home.removeMedia(this.media);
+    }
 
     /**
      * @return Media
