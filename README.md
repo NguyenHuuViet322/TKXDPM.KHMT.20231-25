@@ -374,6 +374,7 @@ This is a Capstone's source code for Software Design and Construction project
 -   Assigned tasks:
     -   Task: Cập nhật architecture design cho UC **Đăng nhập** và **Đăng kí**
     -   Task: Lập trình mã nguồn cho UC **Đăng nhập** và **Đăng kí**
+    -   Task: Bổ sung **Relationship Class Diagram**, **final report**, **Unit Test**, **User Interface**
     -   Task: Bổ sung Data modeling (Logical, Physical, Sql script) cho **toàn bộ bảng**
 -   Pull Request:
 -   Specific implementation details:
@@ -383,6 +384,7 @@ This is a Capstone's source code for Software Design and Construction project
     -   Bổ sung Logical Data Modeling
     -   Bổ sung Physical Data Modeling
     -   Bổ sung SQLite script
+    -   Bổ sung **Relationship Class Diagram**, **final report**, **Unit Test**, **User Interface**
 
 </details>
 <details>
