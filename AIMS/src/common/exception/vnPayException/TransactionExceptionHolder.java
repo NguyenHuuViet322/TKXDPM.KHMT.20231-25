@@ -11,14 +11,16 @@ public class TransactionExceptionHolder {
     private Map<String, PaymentException> exceptions = new HashMap<>();
 
     private TransactionExceptionHolder() {
-        // Khởi tạo các exception và đưa vào Map
-        exceptions.put("01", new TransactionNotDoneException());
+        // Khởi tạo các exception và đưa vào Mape
+
+        exceptions.put("91", new TransactionNotDoneException());
         exceptions.put("02", new TransactionFailedException());
-        exceptions.put("04", new TransactionReverseException());
-        exceptions.put("05", new ProcessingException());
+        exceptions.put("03", new TransactionReverseException());
+        exceptions.put("94", new ProcessingException());
         exceptions.put("09", new RejectedTransactionException());
-        exceptions.put("06", new SendToBankException());
-        exceptions.put("07", new AnonymousTransactionException());
+        exceptions.put("95", new SendToBankException());
+        exceptions.put("97", new AnonymousTransactionException());
+        exceptions.put("99", new PaymentException("Có lỗi khác xảy ra, vui lòng thử lại sau!"));
     }
 
     public static TransactionExceptionHolder getInstance() {

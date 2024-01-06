@@ -220,7 +220,7 @@ public class VnPaySubsystemController implements VnPayInterface {
         Map<String, String> resultMap = new Gson().fromJson(response, type);
 
         var trans = new RefundResponse();
-        trans.setErrorCode(resultMap.get("vnp_TransactionStatus"));
+        trans.setErrorCode(resultMap.get("vnp_ResponseCode "));
         trans.setAmount((int) (Long.parseLong(resultMap.get("vnp_Amount")) / 100));
         trans.setTransactionContent(resultMap.get("vnp_OrderInfo"));
         String createdAt = resultMap.get("vnp_PayDate");
@@ -229,9 +229,10 @@ public class VnPaySubsystemController implements VnPayInterface {
 
         Date date = null;
         try {
+            if(createdAt != null)
             date = dateFormat.parse(createdAt);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            date = null;
         }
         trans.setCreatedAt(date);
         trans.setTransactionContent(resultMap.get("vnp_TransactionNo"));
