@@ -116,6 +116,11 @@ public class Media {
         return medium;
     }
 
+    public void removeMedia() throws SQLException {
+        Statement stm = AIMSDB.getConnection().createStatement();
+        stm.executeUpdate("delete from Media where id=" + this.id + ";");
+    }
+
     /**
      * @param tbname
      * @param id
