@@ -412,3 +412,16 @@ This is a Capstone's source code for Software Design and Construction project
 
 </details>
 </details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Xóa sản phẩm** và thực hiện phân trang danh sách sản phẩm
+    -   Task: Lập trình mã nguồn cho UC **Xóa sản phẩm**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Xóa sản phẩm**
+    -	Thêm biểu đồ **trình tự** cho UC **Xóa sản phẩm**
+    -   **Lập trình** cho Use case **Xóa sản phẩm**
+
+</details>
+</details>
