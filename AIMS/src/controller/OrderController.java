@@ -1,9 +1,11 @@
 package controller;
 
 import common.exception.PaymentException;
+import entity.order.entities.DetailResponse;
 import entity.payment.TransactionResult;
 import common.exception.vnPayException.ProcessingException;
 import entity.order.Order;
+import javafx.scene.control.Alert;
 import subsystem.VnPayInterface;
 import entity.order.entities.RefundTransaction;
 import subsystem.vnPay.VnPaySubsystemController;
@@ -87,6 +89,11 @@ public class OrderController extends BaseController {
 
        return result;
 
+   }
+
+   public DetailResponse getDetailOrder(Order order) throws IOException {
+        var response = vnPayService.getDetailTransaction(order);
+        return response;
    }
 
 }

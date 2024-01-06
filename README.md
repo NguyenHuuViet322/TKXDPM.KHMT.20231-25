@@ -374,13 +374,59 @@ This is a Capstone's source code for Software Design and Construction project
 -   Assigned tasks:
     -   Task: Cập nhật architecture design cho UC **Đăng nhập** và **Đăng kí**
     -   Task: Lập trình mã nguồn cho UC **Đăng nhập** và **Đăng kí**
+    -   Task: Bổ sung Data modeling (Logical, Physical, Sql script) cho **toàn bộ bảng**
 -   Pull Request:
 -   Specific implementation details:
     -   Thêm biểu đồ **Lớp phân tích** cho UC **Đăng nhập** và **đăng kí**
     -	Thêm biểu đồ **trình tự** cho UC **Đăng nhập** và **đăng kí**
     -   **Lập trình** cho Use case **Đăng nhập** và **đăng kí**
+    -   Bổ sung Logical Data Modeling
+    -   Bổ sung Physical Data Modeling
+    -   Bổ sung SQLite script
 
 </details>
+<details>
+<summary>Ninh Thành Vinh</summary>
+	
+-   Assigned tasks:  
+    -   Task: Phân tích yêu cầu và thiết kế kiến trúc cho UC **Chi tiết đơn hàng**
+    -   Task: Lập trình mã nguồn cho UC **Chi tiết đơn hàng**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm đặc tả UC và biểu đồ hoạt động cho UC **Chi tiết đơn hàng**
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Chi tiết đơn hàng** và **Subsystem VNPay**
+    -	Thêm biểu đồ **trình tự** cho UC **Chi tiết đơn hàng**
+    -   **Lập trình** cho Use case **Chi tiết đơn hàng**
+
+</details>
+
+<details>
+<summary>Nguyễn Thị Hồng Vân</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Xóa sản phẩm** và thực hiện phân trang danh sách sản phẩm
+    -   Task: Lập trình mã nguồn cho UC **Xóa sản phẩm**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Xóa sản phẩm**
+    -	Thêm biểu đồ **trình tự** cho UC **Xóa sản phẩm**
+    -   **Lập trình** cho Use case **Xóa sản phẩm**
+</details>
+
+<details>
+<summary>Chu Văn Việt</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -   Task: Lập trình mã nguồn cho UC ***Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -	Thêm biểu đồ **trình tự** cho UC **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -   **Lập trình** cho Use case **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+</details>
+
+<details>
 <summary>Nguyễn Thế Vũ</summary>
 	
 -   Assigned tasks:

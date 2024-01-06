@@ -1,7 +1,6 @@
 package views.screen.home;
 
 import common.exception.ViewCartException;
-import controller.AccountController;
 import controller.HomeController;
 import controller.OrderController;
 import controller.ViewCartController;
@@ -67,11 +66,17 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
 
+    @FXML
+    private HBox pageNumberHbox;
+
     private List homeItems;
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
+
+    private int numberMediaPerPage = 12;
+    private int currentPage;
 
     /**
      * @return Label
@@ -111,19 +116,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 // Control Coupling
 // Control Cohesion
     public void initialize(URL arg0, ResourceBundle arg1) {
+        numberMediaPerPage = 12;
+        currentPage = 1;
         setBController(new HomeController());
-        try {
-            List medium = getBController().getAllMedia();
-            this.homeItems = new ArrayList<>();
-            for (Object object : medium) {
-                Media media = (Media) object;
-                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
-                this.homeItems.add(m1);
-            }
-        } catch (SQLException | IOException e) {
-            LOGGER.info("Errors occured: " + e.getMessage());
-            e.printStackTrace();
-        }
+        loadScreen();
 
         login.setOnMouseClicked(e -> {
             LoginScreenHandler loginHandler;
@@ -139,7 +135,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         });
 
         aimsImage.setOnMouseClicked(e -> {
-            addMediaHome(this.homeItems);
+            addMediaHome(GetMediaPaged(currentPage));
         });
 
         cartImage.setOnMouseClicked(e -> {
@@ -170,7 +166,36 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         addMenuItem(1, "DVD", splitMenuBtnSearch);
         addMenuItem(2, "CD", splitMenuBtnSearch);
     }
-//Data Coupling 
+
+    private void loadScreen() {
+        try {
+            List medium = getBController().getAllMedia();
+            this.homeItems = new ArrayList<>();
+            for (Object object : medium) {
+                Media media = (Media) object;
+                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
+                this.homeItems.add(m1);
+            }
+        } catch (SQLException | IOException e) {
+            LOGGER.info("Errors occured: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        int numberOfPage = (int) Math.ceil((double) homeItems.size() / numberMediaPerPage);
+
+        for (int i = 0; i < numberOfPage; i++){
+            Button button = new Button(String.valueOf(i + 1));
+            button.setOnMouseClicked(e -> {
+                int pageIndex = Integer.parseInt(button.getText()) - 1;
+                List mediaPaged = GetMediaPaged(pageIndex);
+                addMediaHome(mediaPaged);
+                currentPage = pageIndex + 1;
+            });
+            pageNumberHbox.getChildren().add(button);
+        }
+    }
+
+    //Data Coupling
 //Data Cohesion
     public void setImage() {
         // fix image path caused by fxml
@@ -181,6 +206,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         File file2 = new File(Configs.IMAGE_PATH + "/" + "cart.png");
         Image img2 = new Image(file2.toURI().toString());
         cartImage.setImage(img2);
+    }
+
+    public List GetMediaPaged(int pageNumber) {
+        int startIndex = pageNumber * numberMediaPerPage;
+        int lastIndex = Math.min(startIndex + numberMediaPerPage, homeItems.size());
+        List mediaPaged = new ArrayList<>(homeItems.subList(startIndex, lastIndex));
+        return mediaPaged;
     }
 
     /**
@@ -243,6 +275,14 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             addMediaHome(filteredItems);
         });
         menuButton.getItems().add(position, menuItem);
+    }
+
+    public void removeMedia(Media media) throws SQLException {
+        homeItems.remove(media);
+        media.removeMedia();
+        pageNumberHbox.getChildren().clear();
+        loadScreen();
+        addMediaHome(GetMediaPaged(currentPage - 1));
     }
 
 }

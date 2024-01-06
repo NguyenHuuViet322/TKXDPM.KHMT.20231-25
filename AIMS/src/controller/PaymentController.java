@@ -28,16 +28,18 @@ public class PaymentController extends BaseController {
      */
     private VnPayInterface vnPayService;
 
-    public PaymentController() {
+
+    public PaymentController(){
         this.vnPayService = new VnPaySubsystemController();
     }
+
     //Control Coupling
     public Map<String, String> makePayment(Map<String, String> res, int orderId) {
         Map<String, String> result = new Hashtable<String, String>();
         PaymentTransaction trans = null;
         try {
 
-             trans = this.vnPayService.makePaymentTransaction(res);
+            trans = this.vnPayService.makePaymentTransaction(res);
             if(trans != null) trans.save(orderId);
             var order = new Order();
             if(trans.getErrorCode().equals("00")){
@@ -63,12 +65,11 @@ public class PaymentController extends BaseController {
             result.put("RESULT", "PAYMENT FAILED!");
 
         }
-         catch (ParseException e) {
+        catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
 
-        
         return result;
     }
 
