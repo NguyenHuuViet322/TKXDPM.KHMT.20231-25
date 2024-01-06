@@ -434,11 +434,17 @@ This is a Capstone's source code for Software Design and Construction project
 -   Assigned tasks:
     -   Task: Thiết kế use case **Hủy đơn hàng** và **Hoàn trả**
     -   Task: Lập trình mã nguồn cho UC **Hủy đơn hàng** và **Hoàn trả**
--   Pull Request:
+        Task: Cập nhật architecture design cho UC **Hủy đơn hàng** và **Hoàn trả**
+    
+        Task: Bổ sung Relationship Class Diagram, final report, User Interface
+       
+    - Pull Request:
 -   Specific implementation details:
     -   Thêm biểu đồ **Lớp phân tích** cho UC **Hủy đơn hàng** và **Hoàn trả**
     -	Thêm biểu đồ **trình tự** cho UC **Hủy đơn hàng** và **Hoàn trả**
     -   **Lập trình** cho Use case **Hủy đơn hàng** và **Hoàn trả**
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Đăng nhập** và **đăng kí**
+    -   Bổ sung **Relationship Class Diagram**, **final report**, **Unit Test**, **User Interface**
 
 </details>
 </details>
