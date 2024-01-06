@@ -414,6 +414,19 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 
 <details>
+<summary>Chu Văn Việt</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -   Task: Lập trình mã nguồn cho UC ***Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -	Thêm biểu đồ **trình tự** cho UC **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+    -   **Lập trình** cho Use case **Thêm sản phẩm mới** và **Cập nhật sản phẩm**
+</details>
+
+<details>
 <summary>Nguyễn Thế Vũ</summary>
 	
 -   Assigned tasks:
