@@ -399,19 +399,8 @@ This is a Capstone's source code for Software Design and Construction project
     -   **Lập trình** cho Use case **Chi tiết đơn hàng**
 
 </details>
-<summary>Nguyễn Thế Vũ</summary>
-	
--   Assigned tasks:
-    -   Task: Thiết kế use case **Hủy đơn hàng** và **Hoàn trả**
-    -   Task: Lập trình mã nguồn cho UC **Hủy đơn hàng** và **Hoàn trả**
--   Pull Request:
--   Specific implementation details:
-    -   Thêm biểu đồ **Lớp phân tích** cho UC **Hủy đơn hàng** và **Hoàn trả**
-    -	Thêm biểu đồ **trình tự** cho UC **Hủy đơn hàng** và **Hoàn trả**
-    -   **Lập trình** cho Use case **Hủy đơn hàng** và **Hoàn trả**
 
-</details>
-</details>
+<details>
 <summary>Nguyễn Thị Hồng Vân</summary>
 	
 -   Assigned tasks:
@@ -422,6 +411,19 @@ This is a Capstone's source code for Software Design and Construction project
     -   Thêm biểu đồ **Lớp phân tích** cho UC **Xóa sản phẩm**
     -	Thêm biểu đồ **trình tự** cho UC **Xóa sản phẩm**
     -   **Lập trình** cho Use case **Xóa sản phẩm**
+</details>
+
+<details>
+<summary>Nguyễn Thế Vũ</summary>
+	
+-   Assigned tasks:
+    -   Task: Thiết kế use case **Hủy đơn hàng** và **Hoàn trả**
+    -   Task: Lập trình mã nguồn cho UC **Hủy đơn hàng** và **Hoàn trả**
+-   Pull Request:
+-   Specific implementation details:
+    -   Thêm biểu đồ **Lớp phân tích** cho UC **Hủy đơn hàng** và **Hoàn trả**
+    -	Thêm biểu đồ **trình tự** cho UC **Hủy đơn hàng** và **Hoàn trả**
+    -   **Lập trình** cho Use case **Hủy đơn hàng** và **Hoàn trả**
 
 </details>
 </details>
