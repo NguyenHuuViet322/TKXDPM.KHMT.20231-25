@@ -2,6 +2,7 @@ package views.screen.home;
 
 import common.exception.ViewCartException;
 import controller.HomeController;
+import controller.MediaController;
 import controller.OrderController;
 import controller.ViewCartController;
 import entity.cart.Cart;
@@ -20,6 +21,7 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.cart.CartScreenHandler;
 import views.screen.login.LoginScreenHandler;
+import views.screen.media.DetailMediaHandler;
 import views.screen.order.OrderScreenHandler;
 
 import java.io.File;
@@ -69,6 +71,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private HBox pageNumberHbox;
 
+    @FXML
+    private Button newMediaBtn;
+
     private List homeItems;
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException {
@@ -98,9 +103,23 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 //Sequential Cohesion
     public void show() {
         try {
-            if (accountController.getLoggedInAccount() != null) {
-                login.setText("Chào mừng, " + accountController.getLoggedInAccount().getName());
+            if (accountController.getLoggedInAccount() == null){
+                newMediaBtn.setVisible(false);
             }
+
+            else if (accountController.getLoggedInAccount() != null && accountController.getLoggedInAccount().getRole() != 2) {
+                login.setText(accountController.getLoggedInAccount().getName());
+                newMediaBtn.setVisible(false);
+            }
+            else {
+                login.setText(accountController.getLoggedInAccount().getName());
+                login.setDisable(true);
+                cartImage.setVisible(false);
+                numMediaInCart.setVisible(false);
+                orderBtn.setVisible(false);
+                newMediaBtn.setVisible(true);
+            }
+
         } catch(Exception e) {
             System.out.println("null");
         }
@@ -161,6 +180,17 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             }
         });
 
+        newMediaBtn.setOnMouseClicked(e -> {
+            Stage newWindow = new Stage();
+            DetailMediaHandler detailmediaScreen = null;
+            try {
+                detailmediaScreen = new DetailMediaHandler(newWindow, Configs.DETAIL_MEDIA_PATH);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            detailmediaScreen.setBController(new MediaController());
+        });
+
         addMediaHome(this.homeItems);
         addMenuItem(0, "Book", splitMenuBtnSearch);
         addMenuItem(1, "DVD", splitMenuBtnSearch);
@@ -172,8 +202,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             List medium = getBController().getAllMedia();
             this.homeItems = new ArrayList<>();
             for (Object object : medium) {
-                Media media = (Media) object;
-                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
+                Media media = (Media) object;;
+                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this, accountController);
                 this.homeItems.add(m1);
             }
         } catch (SQLException | IOException e) {
@@ -192,6 +222,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 currentPage = pageIndex + 1;
             });
             pageNumberHbox.getChildren().add(button);
+
         }
     }
 

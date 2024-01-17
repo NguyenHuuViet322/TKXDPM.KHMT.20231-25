@@ -3,9 +3,7 @@ package entity.media;
 import entity.db.AIMSDB;
 import utils.Utils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,9 +28,11 @@ public class Media {
     protected String type;
     protected String imageURL;
 
-    public Media() throws SQLException {
-        stm = AIMSDB.getConnection().createStatement();
+
+    public Media(){
+//        stm = AIMSDB.getConnection().createStatement();
     }
+
 
     public Media(int id, String title, String category, int price, int quantity, String type) throws SQLException {
         this.id = id;
@@ -60,6 +60,14 @@ public class Media {
         int updated_quantity = getMediaById(id).quantity;
         this.quantity = updated_quantity;
         return updated_quantity;
+    }
+
+    /**
+     * @return int
+
+     */
+    public int getValueQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -116,6 +124,50 @@ public class Media {
         return medium;
     }
 
+    public void create() {
+        // Assuming AIMSDB.getConnection() returns a valid Connection object
+        try (Connection connection = AIMSDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "INSERT INTO Media (type, category, price, quantity, title, value, imageURL) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+
+            // Set the values for the parameters (replace column1, column2, column3 with your actual column names)
+            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, category);
+            preparedStatement.setInt(3, price);
+            preparedStatement.setInt(4, quantity);
+            preparedStatement.setString(5, title);
+            preparedStatement.setInt(6, value);
+            preparedStatement.setString(7, imageURL);
+            // Execute the SQL statement
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void update() {
+        try (Connection connection = AIMSDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "UPDATE Media SET type = ?, category = ?, price = ?, quantity = ?, title = ?, value = ? WHERE id = ?")) {
+
+            // Set the values for the parameters (replace column1, column2, column3 with your actual column names)
+            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, category);
+            preparedStatement.setInt(3, price);
+            preparedStatement.setInt(4, quantity);
+            preparedStatement.setString(5, title);
+            preparedStatement.setInt(6, value);
+
+            // Set the value for the WHERE clause
+            preparedStatement.setInt(7, this.id);
+
+            // Execute the SQL statement
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void removeMedia() throws SQLException {
         Statement stm = AIMSDB.getConnection().createStatement();
         stm.executeUpdate("delete from Media where id=" + this.id + ";");
@@ -168,6 +220,22 @@ public class Media {
      */
     public Media setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    /**
+     * @return int
+     */
+    public int getValue() {
+        return this.value;
+    }
+
+    /**
+     * @param value
+     * @return Media
+     */
+    public Media setValue(int value) {
+        this.value = value;
         return this;
     }
 

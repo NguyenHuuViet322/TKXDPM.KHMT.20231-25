@@ -40,6 +40,8 @@ public class Configs {
 
     public static final String ORDER_DETAILS_PATH = "/views/fxml/details_order.fxml";
 
+    public static final String DETAIL_MEDIA_PATH = "/views/fxml/detail_media.fxml";
+
     public static final int PLACE_RUSH_ORDER = 1;
     public static final int PALCE_ORDER = 2;
     public static String CURRENCY = "VND";

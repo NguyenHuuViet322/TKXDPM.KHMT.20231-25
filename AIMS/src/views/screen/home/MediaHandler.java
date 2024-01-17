@@ -1,6 +1,9 @@
 package views.screen.home;
 
 import common.exception.MediaNotAvailableException;
+import controller.AccountController;
+import controller.MediaController;
+import controller.ViewCartController;
 import entity.cart.Cart;
 import entity.cart.CartMedia;
 import entity.media.Media;
@@ -11,8 +14,12 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import utils.Configs;
+import javafx.stage.Stage;
 import utils.Utils;
 import views.screen.FXMLScreenHandler;
+import views.screen.cart.CartScreenHandler;
+import views.screen.media.DetailMediaHandler;
 import views.screen.popup.PopupScreen;
 
 import java.io.File;
@@ -36,15 +43,37 @@ public class MediaHandler extends FXMLScreenHandler {
     @FXML
     protected Button addToCartBtn;
     @FXML
-    private Button deleteBtn;
+    protected Button editBtn;
+    @FXML
+    protected Button deleteBtn;
 
     private Media media;
+    private AccountController accountController;
     private HomeScreenHandler home;
 
-    public MediaHandler(String screenPath, Media media, HomeScreenHandler home) throws SQLException, IOException {
+    public MediaHandler(String screenPath, Media media, HomeScreenHandler home, AccountController acc) throws SQLException, IOException {
         super(screenPath);
         this.media = media;
         this.home = home;
+        this.accountController = acc;
+//        if (accountController.getAccountController().getLoggedInAccount() == null){
+//            editBtn.setVisible(false);
+//            deleteBtn.setVisible(false);
+//        }
+//        else if (accountController.getAccountController().getLoggedInAccount() != null && accountController.getAccountController().getLoggedInAccount().getRole() != 2) {
+//            editBtn.setVisible(false);
+//            deleteBtn.setVisible(false);
+//        }
+//        else {
+//            editBtn.setVisible(true);
+//            deleteBtn.setVisible(true);
+//            spinnerChangeNumber.setVisible(false);
+//            addToCartBtn.setVisible(false);
+//        }
+
+        editBtn.setOnMouseClicked(e -> {
+            showDetailMedia();
+        });
         deleteBtn.setOnMouseClicked(e -> {
             try {
                 deleteProduct();
@@ -120,4 +149,15 @@ public class MediaHandler extends FXMLScreenHandler {
         setImage(mediaImage, media.getImageURL());
     }
 
+    private void showDetailMedia()
+        {
+            Stage newWindow = new Stage();
+            DetailMediaHandler detailmediaScreen = null;
+            try {
+                detailmediaScreen = new DetailMediaHandler(newWindow, Configs.DETAIL_MEDIA_PATH, this.media);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            detailmediaScreen.setBController(new MediaController());
+        }
 }

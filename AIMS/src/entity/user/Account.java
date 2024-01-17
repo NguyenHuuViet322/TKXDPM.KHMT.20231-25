@@ -65,6 +65,10 @@ public class Account {
         this.name = name;
     }
 
+    public int getRole() {
+        return this.role;
+    }
+
     /**
      * @return String
      */
